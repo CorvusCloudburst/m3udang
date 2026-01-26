@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://btksxy5ipbvkv"]
+[gd_scene format=3 uid="uid://btksxy5ipbvkv"]
 
 [ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dcns3ebee3ko" path="res://icons/music-file.svg" id="2_h2yge"]
@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1697132214]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=329431657]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,10 +26,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
-[node name="NowPlaying" type="AudioStreamPlayer" parent="."]
+[node name="NowPlaying" type="AudioStreamPlayer" parent="." unique_id=354543472]
 volume_db = -20.0
 
-[node name="SongFileDialog" type="FileDialog" parent="."]
+[node name="SongFileDialog" type="FileDialog" parent="." unique_id=1290119146]
 oversampling_override = 1.0
 title = "Open a File"
 initial_position = 2
@@ -39,7 +39,7 @@ file_mode = 0
 display_mode = 1
 access = 2
 
-[node name="Player" type="Panel" parent="."]
+[node name="Player" type="Panel" parent="." unique_id=1919183875]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -49,7 +49,7 @@ offset_left = -381.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="TrackInfo" type="Panel" parent="Player"]
+[node name="TrackInfo" type="Panel" parent="Player" unique_id=702756259]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -60,7 +60,7 @@ offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TrackArtist" type="Label" parent="Player/TrackInfo"]
+[node name="TrackArtist" type="Label" parent="Player/TrackInfo" unique_id=1575882278]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,7 +72,7 @@ grow_horizontal = 2
 text = "(artist)"
 horizontal_alignment = 1
 
-[node name="TrackName" type="Label" parent="Player/TrackInfo"]
+[node name="TrackName" type="Label" parent="Player/TrackInfo" unique_id=832247169]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -87,7 +87,7 @@ grow_vertical = 0
 text = "(title)"
 horizontal_alignment = 1
 
-[node name="MusicControls" type="Panel" parent="Player"]
+[node name="MusicControls" type="Panel" parent="Player" unique_id=1534632402]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -97,7 +97,7 @@ offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="PlayPauseButton" type="Button" parent="Player/MusicControls"]
+[node name="PlayPauseButton" type="Button" parent="Player/MusicControls" unique_id=1253351135]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +116,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="ShuffleButton" type="Button" parent="Player/MusicControls"]
+[node name="ShuffleButton" type="Button" parent="Player/MusicControls" unique_id=939442579]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
@@ -130,7 +130,7 @@ icon = ExtResource("4_lquwl")
 flat = true
 expand_icon = true
 
-[node name="StepForward" type="Button" parent="Player/MusicControls"]
+[node name="StepForward" type="Button" parent="Player/MusicControls" unique_id=531317301]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -148,7 +148,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="StepBack" type="Button" parent="Player/MusicControls"]
+[node name="StepBack" type="Button" parent="Player/MusicControls" unique_id=705299639]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -167,7 +167,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="OpenSongButton" type="Button" parent="Player/MusicControls"]
+[node name="OpenSongButton" type="Button" parent="Player/MusicControls" unique_id=2143066806]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -184,6 +184,11 @@ icon = ExtResource("2_h2yge")
 flat = true
 expand_icon = true
 
+[node name="VolumeButton" type="Button" parent="Player/MusicControls" unique_id=619191458]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
 [connection signal="file_selected" from="SongFileDialog" to="." method="_on_song_file_dialog_file_selected"]
 [connection signal="pressed" from="Player/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
@@ -191,3 +196,4 @@ expand_icon = true
 [connection signal="pressed" from="Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
 [connection signal="pressed" from="Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
 [connection signal="pressed" from="Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
+[connection signal="pressed" from="Player/MusicControls/VolumeButton" to="." method="_on_volume_button_pressed"]
