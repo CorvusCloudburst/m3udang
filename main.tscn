@@ -1,0 +1,193 @@
+[gd_scene load_steps=7 format=3 uid="uid://btksxy5ipbvkv"]
+
+[ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dcns3ebee3ko" path="res://icons/music-file.svg" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cn2bvdgs0pakr" path="res://icons/play.svg" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://ctwwwlgct1g1l" path="res://icons/ordered.svg" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://cqa8f0wxkw0yd" path="res://icons/step.svg" id="5_lquwl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06053035, 0.06053035, 0.060530342, 1)
+
+[node name="NowPlaying" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+
+[node name="SongFileDialog" type="FileDialog" parent="."]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 2
+size = Vector2i(723, 360)
+ok_button_text = "Select"
+file_mode = 0
+display_mode = 1
+access = 2
+
+[node name="Player" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -381.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TrackInfo" type="Panel" parent="Player"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TrackArtist" type="Label" parent="Player/TrackInfo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_right = 30.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "(artist)"
+horizontal_alignment = 1
+
+[node name="TrackName" type="Label" parent="Player/TrackInfo"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -23.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "(title)"
+horizontal_alignment = 1
+
+[node name="MusicControls" type="Panel" parent="Player"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PlayPauseButton" type="Button" parent="Player/MusicControls"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -17.5
+offset_right = 17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_lquwl")
+icon = ExtResource("3_1bvp3")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ShuffleButton" type="Button" parent="Player/MusicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -17.5
+offset_right = 43.0
+offset_bottom = 17.5
+grow_vertical = 2
+icon = ExtResource("4_lquwl")
+flat = true
+expand_icon = true
+
+[node name="StepForward" type="Button" parent="Player/MusicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -12.5
+offset_right = 50.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("5_lquwl")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="StepBack" type="Button" parent="Player/MusicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -4.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415927
+pivot_offset = Vector2(0, 8)
+icon = ExtResource("5_lquwl")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="OpenSongButton" type="Button" parent="Player/MusicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -17.5
+offset_right = -8.0
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("2_h2yge")
+flat = true
+expand_icon = true
+
+[connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
+[connection signal="file_selected" from="SongFileDialog" to="." method="_on_song_file_dialog_file_selected"]
+[connection signal="pressed" from="Player/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
+[connection signal="pressed" from="Player/MusicControls/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
+[connection signal="pressed" from="Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
+[connection signal="pressed" from="Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
+[connection signal="pressed" from="Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
