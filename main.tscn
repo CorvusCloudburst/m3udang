@@ -101,6 +101,14 @@ file_mode = 0
 display_mode = 1
 access = 2
 
+[node name="OpenSongButton" type="Button" parent="Layout/Player/MusicControls" unique_id=2143066806]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Open playlist"
+icon = ExtResource("2_h2yge")
+flat = true
+expand_icon = true
+
 [node name="ShuffleButton" type="Button" parent="Layout/Player/MusicControls" unique_id=939442579]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -145,14 +153,6 @@ size_flags_stretch_ratio = 2.09
 max_value = 1.0
 step = 0.001
 
-[node name="OpenSongButton" type="Button" parent="Layout/Player/MusicControls" unique_id=2143066806]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Open playlist"
-icon = ExtResource("2_h2yge")
-flat = true
-expand_icon = true
-
 [node name="TrackInfo" type="BoxContainer" parent="Layout/Player" unique_id=2025613512]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -173,9 +173,9 @@ horizontal_alignment = 1
 [connection signal="dir_selected" from="Layout/Player/PlaylistControls/PlaylistDirectoryDialog" to="." method="_on_playlist_directory_dialog_dir_selected"]
 [connection signal="pressed" from="Layout/Player/PlaylistControls/PlaylistDirectoryButton" to="." method="_on_playlist_directory_button_pressed"]
 [connection signal="file_selected" from="Layout/Player/MusicControls/SongFileDialog" to="." method="_on_song_file_dialog_file_selected"]
+[connection signal="pressed" from="Layout/Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
 [connection signal="value_changed" from="Layout/Player/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
-[connection signal="pressed" from="Layout/Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
