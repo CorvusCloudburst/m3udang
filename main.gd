@@ -1,13 +1,14 @@
 extends Control
 
-# Music Player
 var playlistDirectory: String
-var playlistIndex: int
-var playlist: PackedStringArray
+@onready var allPlaylists = $Layout/PrimaryWindow/PlaylistDirectory
+
+@onready var activePlaylist = $Layout/PrimaryWindow/SongList
+var activePlaylistIndex: int
 var shuffle: bool
 
 # ------------- ------------- ------------- ------------- 
-# Basic music controls
+# Active Music Track
 # ------------- ------------- ------------- ------------- 
 
 # Plays the mp3 file at the provided path
@@ -30,25 +31,100 @@ func play_song_from_path(songPath: String) -> void:
 	
 # Constructs the full file path of the current song and plays it
 func play_current_song() -> void:
-	play_song_from_path(playlistDirectory + playlist[playlistIndex])
+	activePlaylist.deselect_all()
+	activePlaylist.select(activePlaylistIndex)
+	play_song_from_path(playlistDirectory + activePlaylist.get_item_text(activePlaylistIndex))
 
 # Advances to the next song, then plays it
 func play_next_song() -> void:
 	if shuffle:
-		playlistIndex = randi() % playlist.size()
+		activePlaylistIndex = randi() % activePlaylist.item_count
 	else:
-		playlistIndex += 1
-		if playlistIndex >= playlist.size():
-			playlistIndex = 0
+		activePlaylistIndex += 1
+		if activePlaylistIndex >= activePlaylist.item_count:
+			activePlaylistIndex = 0
 	play_current_song()
+
+# Plays the song at the specified index in the active playlist
+func play_song_at_index(index: int) -> void:
+		activePlaylistIndex = index
+		play_current_song()
 
 # When a song completes, play the next one
 func _on_now_playing_finished() -> void:
 	play_next_song()
 
+# Stops all playling and clears the playlist
+func clear_now_playing() -> void:
+	activePlaylist.clear()
+	activePlaylistIndex = 0
+	$NowPlaying.stop()
+
 # ------------- ------------- ------------- ------------- 
-# Player Buttons (Left to right)
+# Playlist Directory
 # ------------- ------------- ------------- ------------- 
+# Opens a directory and displays all m3u playlists within (non-recursive)	
+func update_playlist_directory(dir: String) -> void:
+	var files = DirAccess.get_files_at(dir)
+	
+	allPlaylists.clear()
+	clear_now_playing()
+	playlistDirectory = dir + "/"
+	
+	for playlistFile in files:
+		if playlistFile.ends_with(".m3u"):
+			allPlaylists.add_item(playlistFile)
+
+# Handles a playlist being selected or unselected
+func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
+	if !$NowPlaying.playing:
+		return
+	var fileName = allPlaylists.get_item_text(index)
+	var file = FileAccess.open(playlistDirectory + "/" + fileName, FileAccess.READ_WRITE)
+	var songFile = activePlaylist.get_item_text(activePlaylistIndex)
+	if selected:
+		print("SELECTED " + fileName)
+		#file.store_csv_line(songFile, "\n")
+	else:
+		print("deselected " + fileName)
+		var songIndex = file.get_as_text().find(songFile)
+		print(songIndex)
+
+	
+# ------------- ------------- ------------- ------------- 
+# Active Playlist
+# ------------- ------------- ------------- ------------- 
+
+func _on_song_list_item_activated(index: int) -> void:
+	play_song_at_index(index)
+	
+
+# ------------- ------------- ------------- ------------- 
+# Player Controls (Left to right)
+# ------------- ------------- ------------- ------------- 
+
+# ------------- Open Playlist -------------
+func _on_open_playlist_button_pressed() -> void:
+	$Layout/Player/MusicControls/PlaylistFileDialog.visible = true
+
+# Differentiates between m3u & mp3
+func _on_playlist_file_selected(path: String) -> void:
+	if path.ends_with(".m3u"):
+		open_playlist(path)
+		play_current_song()
+	else:
+		printerr("Selected file is not an .m3u")
+		pass
+
+# Opens an m3u and stores the playlist in an array
+  # ?? How big can the playlist get before this gets weird ??
+func open_playlist(path: String) -> void:
+	update_playlist_directory(path.get_base_dir() + "/")
+	var file = FileAccess.open(path, FileAccess.READ)
+	var currentLine = file.get_csv_line("\n")
+	while currentLine[0] != "":
+		activePlaylist.add_item(currentLine[0])
+		currentLine = file.get_csv_line("\n")
 
 # ------------- Shuffle -------------
 func _on_shuffle_button_pressed() -> void:
@@ -83,57 +159,3 @@ func _on_step_forward_pressed() -> void:
 # ------------- Volume -------------
 func _on_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), value)
-
-# ------------- Open File -------------
-func _on_open_song_button_pressed() -> void:
-	$Layout/Player/MusicControls/SongFileDialog.visible = true
-
-# Differentiates between m3u & mp3
-func _on_song_file_dialog_file_selected(path: String) -> void:
-	if path.ends_with(".mp3"):
-		play_song_from_path(path)
-	elif path.ends_with(".m3u"):
-		open_playlist(path)
-		play_current_song()
-
-# Opens an m3u and stores the playlist in an array
-  # ?? How big can the playlist get before this gets weird ??
-func open_playlist(path: String) -> void:
-	playlistDirectory = path.get_base_dir() + "/"
-	var file = FileAccess.open(path, FileAccess.READ)
-	var currentLine = file.get_csv_line("\n")
-	while currentLine[0] != "":
-		playlist.append(currentLine[0])
-		currentLine = file.get_csv_line("\n")
-	
-# ------------- ------------- -------------
-# Playlist Buttons (Top to bottom)
-# ------------- ------------- -------------
-
-# ------------- Playlist Directory -------------
-func _on_playlist_directory_button_pressed() -> void:
-	$Layout/Player/PlaylistControls/PlaylistDirectoryDialog.visible = true
-
-# Opens a directory and displays all m3u playlists within (non-recursive)
-func _on_playlist_directory_dialog_dir_selected(dir: String) -> void:
-	var allPlaylists = $Layout/PrimaryWindow/PlaylistList
-	allPlaylists.clear()
-	var files = DirAccess.get_files_at(dir)
-	for playlistFile in files:
-		if playlistFile.ends_with(".m3u"):
-			allPlaylists.add_item(playlistFile)
-
-# Handles a playlist being selected or unselected
-func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
-	if !$NowPlaying.playing:
-		return
-	var fileName = $Layout/PrimaryWindow/PlaylistList.get_item_text(index)
-	var file = FileAccess.open(playlistDirectory + "/" + fileName, FileAccess.READ_WRITE)
-	var songFile = playlist[playlistIndex]
-	if selected:
-		print("SELECTED " + fileName)
-		#file.store_csv_line(songFile, "\n")
-	else:
-		print("deselected " + fileName)
-		var songIndex = file.get_as_text().find(songFile)
-		print(songIndex)
