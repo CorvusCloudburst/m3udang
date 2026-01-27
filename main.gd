@@ -80,8 +80,8 @@ func _on_step_forward_pressed() -> void:
 	play_next_song()
 
 # ------------- Volume -------------
-func _on_volume_button_pressed() -> void:
-	print("todo: open slider")
+func _on_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), value)
 
 # ------------- Open File -------------
 func _on_open_song_button_pressed() -> void:

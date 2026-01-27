@@ -184,10 +184,21 @@ icon = ExtResource("2_h2yge")
 flat = true
 expand_icon = true
 
-[node name="VolumeButton" type="Button" parent="Player/MusicControls" unique_id=619191458]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="VolumeSlider" type="HSlider" parent="Player/MusicControls" unique_id=1566370350]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 74.5
+offset_top = -7.0
+offset_right = 126.5
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.001
 
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
 [connection signal="file_selected" from="SongFileDialog" to="." method="_on_song_file_dialog_file_selected"]
@@ -196,4 +207,4 @@ offset_bottom = 8.0
 [connection signal="pressed" from="Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
 [connection signal="pressed" from="Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
 [connection signal="pressed" from="Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
-[connection signal="pressed" from="Player/MusicControls/VolumeButton" to="." method="_on_volume_button_pressed"]
+[connection signal="value_changed" from="Player/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
