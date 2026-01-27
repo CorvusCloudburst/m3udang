@@ -6,9 +6,6 @@ var playlistIndex: int
 var playlist: PackedStringArray
 var shuffle: bool
 
-# Playlist Manager
-var allPlaylists: PackedStringArray
-
 # ------------- ------------- ------------- ------------- 
 # Basic music controls
 # ------------- ------------- ------------- ------------- 
@@ -115,13 +112,28 @@ func open_playlist(path: String) -> void:
 
 # ------------- Playlist Directory -------------
 func _on_playlist_directory_button_pressed() -> void:
-	$Layout/PlaylistPanel/PlaylistControls/PlaylistDirectoryDialog.visible = true
+	$Layout/Player/PlaylistControls/PlaylistDirectoryDialog.visible = true
 
 # Opens a directory and displays all m3u playlists within (non-recursive)
 func _on_playlist_directory_dialog_dir_selected(dir: String) -> void:
+	var allPlaylists = $Layout/PrimaryWindow/PlaylistList
 	allPlaylists.clear()
 	var files = DirAccess.get_files_at(dir)
 	for playlistFile in files:
 		if playlistFile.ends_with(".m3u"):
-			allPlaylists.append(playlistFile)
-	print(allPlaylists)
+			allPlaylists.add_item(playlistFile)
+
+# Handles a playlist being selected or unselected
+func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
+	if !$NowPlaying.playing:
+		return
+	var fileName = $Layout/PrimaryWindow/PlaylistList.get_item_text(index)
+	var file = FileAccess.open(playlistDirectory + "/" + fileName, FileAccess.READ_WRITE)
+	var songFile = playlist[playlistIndex]
+	if selected:
+		print("SELECTED " + fileName)
+		#file.store_csv_line(songFile, "\n")
+	else:
+		print("deselected " + fileName)
+		var songIndex = file.get_as_text().find(songFile)
+		print(songIndex)

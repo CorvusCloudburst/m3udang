@@ -38,18 +38,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+vertical = true
 
-[node name="PlaylistPanel" type="BoxContainer" parent="Layout" unique_id=444048005]
+[node name="PrimaryWindow" type="BoxContainer" parent="Layout" unique_id=444048005]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
-[node name="PlaylistControls" type="BoxContainer" parent="Layout/PlaylistPanel" unique_id=913697485]
+[node name="PlaylistList" type="ItemList" parent="Layout/PrimaryWindow" unique_id=2137493073]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 2
+item_count = 1
+item_0/text = "(playlist)"
+
+[node name="Visualizer" type="Panel" parent="Layout/PrimaryWindow" unique_id=1402887925]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Player" type="BoxContainer" parent="Layout" unique_id=1500861526]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+alignment = 1
+
+[node name="PlaylistControls" type="BoxContainer" parent="Layout/Player" unique_id=913697485]
 layout_mode = 2
 alignment = 2
 
-[node name="PlaylistDirectoryDialog" type="FileDialog" parent="Layout/PlaylistPanel/PlaylistControls" unique_id=294560825]
+[node name="PlaylistDirectoryDialog" type="FileDialog" parent="Layout/Player/PlaylistControls" unique_id=294560825]
 oversampling_override = 1.0
 title = "Open a Directory"
 initial_position = 2
@@ -58,49 +77,17 @@ file_mode = 2
 display_mode = 1
 access = 2
 
-[node name="PlaylistDirectoryButton" type="Button" parent="Layout/PlaylistPanel/PlaylistControls" unique_id=925047005]
+[node name="PlaylistDirectoryButton" type="Button" parent="Layout/Player/PlaylistControls" unique_id=925047005]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-size_flags_vertical = 8
 tooltip_text = "Set playlist directory"
 icon = ExtResource("6_7mycd")
 flat = true
-
-[node name="ItemList" type="ItemList" parent="Layout/PlaylistPanel" unique_id=2137493073]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Visualizer" type="Panel" parent="Layout" unique_id=1945335365]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
-
-[node name="Player" type="BoxContainer" parent="Layout" unique_id=1500861526]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 10
-size_flags_stretch_ratio = 0.5
-alignment = 1
-vertical = true
-
-[node name="TrackInfo" type="BoxContainer" parent="Layout/Player" unique_id=2025613512]
-layout_mode = 2
-vertical = true
-
-[node name="TrackArtist" type="Label" parent="Layout/Player/TrackInfo" unique_id=1575882278]
-layout_mode = 2
-text = "(artist)"
-horizontal_alignment = 1
-
-[node name="TrackName" type="Label" parent="Layout/Player/TrackInfo" unique_id=832247169]
-layout_mode = 2
-text = "(title)"
-horizontal_alignment = 1
+icon_alignment = 1
+expand_icon = true
 
 [node name="MusicControls" type="BoxContainer" parent="Layout/Player" unique_id=2030608490]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -113,14 +100,6 @@ ok_button_text = "Select"
 file_mode = 0
 display_mode = 1
 access = 2
-
-[node name="OpenSongButton" type="Button" parent="Layout/Player/MusicControls" unique_id=2143066806]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Open playlist"
-icon = ExtResource("2_h2yge")
-flat = true
-expand_icon = true
 
 [node name="ShuffleButton" type="Button" parent="Layout/Player/MusicControls" unique_id=939442579]
 layout_mode = 2
@@ -166,29 +145,37 @@ size_flags_stretch_ratio = 2.09
 max_value = 1.0
 step = 0.001
 
-[node name="SliderRail" type="ColorRect" parent="Layout/Player/MusicControls/VolumeSlider" unique_id=1610973627]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.5
-offset_top = -1.75
-offset_right = 23.5
-offset_bottom = 1.75
-grow_horizontal = 2
-grow_vertical = 2
-tooltip_text = "Adjust volume"
-color = Color(1, 1, 1, 0.23137255)
+[node name="OpenSongButton" type="Button" parent="Layout/Player/MusicControls" unique_id=2143066806]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Open playlist"
+icon = ExtResource("2_h2yge")
+flat = true
+expand_icon = true
+
+[node name="TrackInfo" type="BoxContainer" parent="Layout/Player" unique_id=2025613512]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical = true
+
+[node name="TrackArtist" type="Label" parent="Layout/Player/TrackInfo" unique_id=1575882278]
+layout_mode = 2
+text = "(artist)"
+horizontal_alignment = 1
+
+[node name="TrackName" type="Label" parent="Layout/Player/TrackInfo" unique_id=832247169]
+layout_mode = 2
+text = "(title)"
+horizontal_alignment = 1
 
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
-[connection signal="dir_selected" from="Layout/PlaylistPanel/PlaylistControls/PlaylistDirectoryDialog" to="." method="_on_playlist_directory_dialog_dir_selected"]
-[connection signal="pressed" from="Layout/PlaylistPanel/PlaylistControls/PlaylistDirectoryButton" to="." method="_on_playlist_directory_button_pressed"]
+[connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistList" to="." method="_on_playlist_list_multi_selected"]
+[connection signal="dir_selected" from="Layout/Player/PlaylistControls/PlaylistDirectoryDialog" to="." method="_on_playlist_directory_dialog_dir_selected"]
+[connection signal="pressed" from="Layout/Player/PlaylistControls/PlaylistDirectoryButton" to="." method="_on_playlist_directory_button_pressed"]
 [connection signal="file_selected" from="Layout/Player/MusicControls/SongFileDialog" to="." method="_on_song_file_dialog_file_selected"]
-[connection signal="pressed" from="Layout/Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="Layout/Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
 [connection signal="value_changed" from="Layout/Player/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="Layout/Player/MusicControls/OpenSongButton" to="." method="_on_open_song_button_pressed"]
