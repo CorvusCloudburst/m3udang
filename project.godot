@@ -17,3 +17,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="M3udang"
 run/main_scene="uid://btksxy5ipbvkv"
 config/features=PackedStringArray("4.6", "Forward Plus")
+
+[audio]
+
+buses/default_bus_layout="uid://78jupxapj4tp"
+
+[display]
+
+window/size/viewport_width=1120

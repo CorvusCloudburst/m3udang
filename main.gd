@@ -1,9 +1,13 @@
 extends Control
 
+# Music Player
 var playlistDirectory: String
 var playlistIndex: int
 var playlist: PackedStringArray
 var shuffle: bool
+
+# Playlist Manager
+var allPlaylists: PackedStringArray
 
 # ------------- ------------- ------------- ------------- 
 # Basic music controls
@@ -85,7 +89,7 @@ func _on_volume_slider_value_changed(value: float) -> void:
 
 # ------------- Open File -------------
 func _on_open_song_button_pressed() -> void:
-	$SongFileDialog.visible = true
+	$Player/MusicControls/SongFileDialog.visible = true
 
 # Differentiates between m3u & mp3
 func _on_song_file_dialog_file_selected(path: String) -> void:
@@ -106,3 +110,18 @@ func open_playlist(path: String) -> void:
 		currentLine = file.get_csv_line("\n")
 	
 # ------------- ------------- -------------
+# Playlist Buttons (Top to bottom)
+# ------------- ------------- -------------
+
+# ------------- Playlist Directory -------------
+func _on_playlist_directory_button_pressed() -> void:
+	$PlaylistPanel/PlaylistControls/PlaylistDirectoryDialog.visible = true
+
+# Opens a directory and displays all m3u playlists within (non-recursive)
+func _on_playlist_directory_dialog_dir_selected(dir: String) -> void:
+	allPlaylists.clear()
+	var files = DirAccess.get_files_at(dir)
+	for playlistFile in files:
+		if playlistFile.ends_with(".m3u"):
+			allPlaylists.append(playlistFile)
+	print(allPlaylists)
