@@ -24,8 +24,8 @@ func play_song_from_path(songPath: String) -> void:
 	tagReader.stream = stream
 	
 	# Update song info on screen
-	$Player/TrackInfo/TrackName.text = tagReader.getTrackName()
-	$Player/TrackInfo/TrackArtist.text = tagReader.getArtist()
+	$Layout/Player/TrackInfo/TrackName.text = tagReader.getTrackName()
+	$Layout/Player/TrackInfo/TrackArtist.text = tagReader.getArtist()
 	
 	# Play the song
 	$NowPlaying.play()
@@ -55,7 +55,7 @@ func _on_now_playing_finished() -> void:
 
 # ------------- Shuffle -------------
 func _on_shuffle_button_pressed() -> void:
-	var shuffleButton = $Player/MusicControls/ShuffleButton
+	var shuffleButton = $Layout/Player/MusicControls/ShuffleButton
 	shuffle = !shuffle
 	if shuffle:
 		shuffleButton.icon = preload("res://icons/shuffle.svg")
@@ -73,7 +73,7 @@ func _on_play_pause_button_pressed() -> void:
 	set_play_pause_button()
 
 func set_play_pause_button() -> void:
-	var playButton = $Player/MusicControls/PlayPauseButton
+	var playButton = $Layout/Player/MusicControls/PlayPauseButton
 	if $NowPlaying.stream_paused: 
 		playButton.icon = preload("res://icons/play.svg")
 	else: 
@@ -89,7 +89,7 @@ func _on_volume_slider_value_changed(value: float) -> void:
 
 # ------------- Open File -------------
 func _on_open_song_button_pressed() -> void:
-	$Player/MusicControls/SongFileDialog.visible = true
+	$Layout/Player/MusicControls/SongFileDialog.visible = true
 
 # Differentiates between m3u & mp3
 func _on_song_file_dialog_file_selected(path: String) -> void:
@@ -115,7 +115,7 @@ func open_playlist(path: String) -> void:
 
 # ------------- Playlist Directory -------------
 func _on_playlist_directory_button_pressed() -> void:
-	$PlaylistPanel/PlaylistControls/PlaylistDirectoryDialog.visible = true
+	$Layout/PlaylistPanel/PlaylistControls/PlaylistDirectoryDialog.visible = true
 
 # Opens a directory and displays all m3u playlists within (non-recursive)
 func _on_playlist_directory_dialog_dir_selected(dir: String) -> void:

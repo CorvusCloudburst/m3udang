@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqa8f0wxkw0yd"
-path="res://.godot/imported/step.svg-908f7921e2fe7a09885532cb77ba212c.ctex"
+uid="uid://fn5p0dtakd1k"
+path="res://.godot/imported/stepForward.svg-b5c1e38905c7a97e07c00729a0c4606c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/step.svg"
-dest_files=["res://.godot/imported/step.svg-908f7921e2fe7a09885532cb77ba212c.ctex"]
+source_file="res://icons/stepForward.svg"
+dest_files=["res://.godot/imported/stepForward.svg-b5c1e38905c7a97e07c00729a0c4606c.ctex"]
 
 [params]
 
