@@ -84,12 +84,10 @@ func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
 	var songFile = activePlaylist.get_item_text(activePlaylistIndex)
 	if selected:
 		print("SELECTED " + fileName)
-		#file.store_csv_line(songFile, "\n")
+		#file.store_line(songFile)
 	else:
 		print("deselected " + fileName)
-		var songIndex = file.get_as_text().find(songFile)
-		print(songIndex)
-
+		#var file_song_removed = file.get_as_text().replace(songFile, "")
 	
 # ------------- ------------- ------------- ------------- 
 # Active Playlist
@@ -121,10 +119,10 @@ func _on_playlist_file_selected(path: String) -> void:
 func open_playlist(path: String) -> void:
 	update_playlist_directory(path.get_base_dir() + "/")
 	var file = FileAccess.open(path, FileAccess.READ)
-	var currentLine = file.get_csv_line("\n")
-	while currentLine[0] != "":
-		activePlaylist.add_item(currentLine[0])
-		currentLine = file.get_csv_line("\n")
+	var currentLine = file.get_line()
+	while currentLine != "":
+		activePlaylist.add_item(currentLine)
+		currentLine = file.get_line()
 
 # ------------- Shuffle -------------
 func _on_shuffle_button_pressed() -> void:
