@@ -3,4 +3,4 @@
 
 An m3u playlist manager. 
 
-icons/m3udang-demo.mp4
+<img src="icons/demo.gif" />
