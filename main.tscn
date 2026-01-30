@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://btksxy5ipbvkv"]
 
-[ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://civ00mdfxk18u" path="res://visualizer.gd" id="2_272bh"]
+[ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://scripts/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://civ00mdfxk18u" path="res://scripts/visualizer.gd" id="2_272bh"]
 [ext_resource type="Texture2D" uid="uid://dcns3ebee3ko" path="res://icons/music-file.svg" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cn2bvdgs0pakr" path="res://icons/play.svg" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://pmdkjwskg44k" path="res://scripts/time_slider.gd" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://ctwwwlgct1g1l" path="res://icons/ordered.svg" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://u8hdk8nredkp" path="res://icons/stepBack.svg" id="5_272bh"]
 [ext_resource type="Texture2D" uid="uid://fn5p0dtakd1k" path="res://icons/stepForward.svg" id="7_5vw27"]
@@ -76,13 +77,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 alignment = 1
+vertical = true
 
-[node name="MusicControls" type="BoxContainer" parent="Layout/Player" unique_id=2030608490]
+[node name="TimeSlider" type="HSlider" parent="Layout/Player" unique_id=478064941]
+layout_mode = 2
+scrollable = false
+script = ExtResource("3_kek77")
+
+[node name="Controls" type="BoxContainer" parent="Layout/Player" unique_id=1743962511]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MusicControls" type="BoxContainer" parent="Layout/Player/Controls" unique_id=2030608490]
 custom_minimum_size = Vector2(350, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlaylistFileDialog" type="FileDialog" parent="Layout/Player/MusicControls" unique_id=1290119146]
+[node name="PlaylistFileDialog" type="FileDialog" parent="Layout/Player/Controls/MusicControls" unique_id=1290119146]
 oversampling_override = 1.0
 title = "Open a File"
 initial_position = 2
@@ -92,7 +103,7 @@ file_mode = 0
 display_mode = 1
 access = 2
 
-[node name="OpenPlaylistButton" type="Button" parent="Layout/Player/MusicControls" unique_id=2143066806]
+[node name="OpenPlaylistButton" type="Button" parent="Layout/Player/Controls/MusicControls" unique_id=2143066806]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Open playlist"
@@ -100,7 +111,7 @@ icon = ExtResource("2_h2yge")
 flat = true
 expand_icon = true
 
-[node name="ShuffleButton" type="Button" parent="Layout/Player/MusicControls" unique_id=939442579]
+[node name="ShuffleButton" type="Button" parent="Layout/Player/Controls/MusicControls" unique_id=939442579]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Toggle shuffle"
@@ -108,7 +119,7 @@ icon = ExtResource("4_lquwl")
 flat = true
 expand_icon = true
 
-[node name="StepBack" type="Button" parent="Layout/Player/MusicControls" unique_id=705299639]
+[node name="StepBack" type="Button" parent="Layout/Player/Controls/MusicControls" unique_id=705299639]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Restart song"
@@ -117,7 +128,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="PlayPauseButton" type="Button" parent="Layout/Player/MusicControls" unique_id=1253351135]
+[node name="PlayPauseButton" type="Button" parent="Layout/Player/Controls/MusicControls" unique_id=1253351135]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Play/Pause"
@@ -127,7 +138,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="StepForward" type="Button" parent="Layout/Player/MusicControls" unique_id=531317301]
+[node name="StepForward" type="Button" parent="Layout/Player/Controls/MusicControls" unique_id=531317301]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Next song"
@@ -136,7 +147,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="VolumeSlider" type="HSlider" parent="Layout/Player/MusicControls" unique_id=1566370350]
+[node name="VolumeSlider" type="HSlider" parent="Layout/Player/Controls/MusicControls" unique_id=1566370350]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -145,17 +156,17 @@ max_value = 1.0
 step = 0.001
 value = 1.0
 
-[node name="TrackInfo" type="BoxContainer" parent="Layout/Player" unique_id=2025613512]
+[node name="TrackInfo" type="BoxContainer" parent="Layout/Player/Controls" unique_id=2025613512]
 layout_mode = 2
 size_flags_horizontal = 3
 vertical = true
 
-[node name="TrackArtist" type="Label" parent="Layout/Player/TrackInfo" unique_id=1575882278]
+[node name="TrackArtist" type="Label" parent="Layout/Player/Controls/TrackInfo" unique_id=1575882278]
 layout_mode = 2
 text = "(artist)"
 horizontal_alignment = 1
 
-[node name="TrackName" type="Label" parent="Layout/Player/TrackInfo" unique_id=832247169]
+[node name="TrackName" type="Label" parent="Layout/Player/Controls/TrackInfo" unique_id=832247169]
 layout_mode = 2
 text = "(title)"
 horizontal_alignment = 1
@@ -164,10 +175,12 @@ horizontal_alignment = 1
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
 [connection signal="resized" from="Layout/PrimaryWindow/Visualizer" to="Layout/PrimaryWindow/Visualizer" method="_on_resized"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongList" to="." method="_on_song_list_item_activated"]
-[connection signal="file_selected" from="Layout/Player/MusicControls/PlaylistFileDialog" to="." method="_on_playlist_file_selected"]
-[connection signal="pressed" from="Layout/Player/MusicControls/OpenPlaylistButton" to="." method="_on_open_playlist_button_pressed"]
-[connection signal="pressed" from="Layout/Player/MusicControls/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
-[connection signal="pressed" from="Layout/Player/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
-[connection signal="pressed" from="Layout/Player/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
-[connection signal="pressed" from="Layout/Player/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
-[connection signal="value_changed" from="Layout/Player/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="drag_ended" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_ended"]
+[connection signal="drag_started" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_started"]
+[connection signal="file_selected" from="Layout/Player/Controls/MusicControls/PlaylistFileDialog" to="." method="_on_playlist_file_selected"]
+[connection signal="pressed" from="Layout/Player/Controls/MusicControls/OpenPlaylistButton" to="." method="_on_open_playlist_button_pressed"]
+[connection signal="pressed" from="Layout/Player/Controls/MusicControls/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
+[connection signal="pressed" from="Layout/Player/Controls/MusicControls/StepBack" to="." method="_on_step_back_pressed"]
+[connection signal="pressed" from="Layout/Player/Controls/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
+[connection signal="pressed" from="Layout/Player/Controls/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
+[connection signal="value_changed" from="Layout/Player/Controls/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]

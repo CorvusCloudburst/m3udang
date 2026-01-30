@@ -7,6 +7,9 @@ var playlistDirectory: String
 var activePlaylistIndex: int
 var shuffle: bool
 
+func _process(_delta) -> void:
+	Globals.seconds = $NowPlaying.get_playback_position()
+
 # -----------------------------------------------------------------
 # Active Music Track
 # -----------------------------------------------------------------
@@ -30,8 +33,9 @@ func play_song_at_path(relativePath: String) -> void:
 	tagReader.stream = stream
 	
 	# Update song details in the player
-	$Layout/Player/TrackInfo/TrackName.text = tagReader.getTrackName()
-	$Layout/Player/TrackInfo/TrackArtist.text = tagReader.getArtist()
+	$Layout/Player/Controls/TrackInfo/TrackName.text = tagReader.getTrackName()
+	$Layout/Player/Controls/TrackInfo/TrackArtist.text = tagReader.getArtist()
+	Globals.songLength = stream.get_length()
 	
 	# Play the song
 	$NowPlaying.play()
@@ -88,7 +92,7 @@ func clear_now_playing() -> void:
 # Toggles the play/pause icon depending on whether a song is playing
 func set_play_pause_button() -> void:
 	# Toggle button icon to indicate current state
-	var playButton = $Layout/Player/MusicControls/PlayPauseButton
+	var playButton = $Layout/Player/Controls/MusicControls/PlayPauseButton
 	if $NowPlaying.stream_paused: 
 		playButton.icon = preload("res://icons/play.svg")
 	else: 
@@ -155,12 +159,22 @@ func _on_song_list_item_activated(index: int) -> void:
 
 
 # -----------------------------------------------------------------
-# Music Player Controls (Left to right)
+# Music Player Controls
 # -----------------------------------------------------------------
+
+# ------------- Time Slider --------------------------
+func _on_time_slider_drag_started() -> void:
+	$Layout/Player/TimeSlider.dragging = true
+	
+func _on_time_slider_drag_ended(value_changed: bool) -> void:
+	var timeSlider = $Layout/Player/TimeSlider
+	timeSlider.dragging = false
+	if value_changed:
+		$NowPlaying.seek(timeSlider.value)
 
 # ------------- Open Playlist --------------------------
 func _on_open_playlist_button_pressed() -> void:
-	$Layout/Player/MusicControls/PlaylistFileDialog.visible = true
+	$Layout/Player/Controls/MusicControls/PlaylistFileDialog.visible = true
 	
 # ---------------------------------------
 # Opens a playlist and plays a song
@@ -189,7 +203,7 @@ func open_playlist(path: String) -> void:
 
 # ------------- Shuffle --------------------------
 func _on_shuffle_button_pressed() -> void:
-	var shuffleButton = $Layout/Player/MusicControls/ShuffleButton
+	var shuffleButton = $Layout/Player/Controls/MusicControls/ShuffleButton
 	shuffle = !shuffle
 	# Toggle button icon to indicate current state
 	if shuffle:
