@@ -1,7 +1,7 @@
 extends Control
 
 var playlistDirectory: String
-@onready var allPlaylists = $Layout/PrimaryWindow/PlaylistDirectory
+@onready var allPlaylists = $Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory
 
 @onready var activePlaylist = $Layout/PrimaryWindow/SongPanel/SongList
 var activePlaylistIndex: int
@@ -103,16 +103,67 @@ func set_play_pause_button() -> void:
 # Playlist Directory
 # -----------------------------------------------------------------
 
+# ------------- New Playlist --------------------------
+func _on_new_playlist_button_pressed() -> void:
+	create_new_playlist()
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text = ""
+	update_playlist_directory(playlistDirectory)
+
+# ---------------------------------------
+func create_new_playlist() -> FileAccess:
+	# Playlist directory should already be set before making a new one
+	if !playlistDirectory:
+		printerr("No playlist directory selected yet.")
+		return
+	
+	# Ensure the playlist is named validly
+	var playlistName: String = $Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text
+	if !playlistName.ends_with(".m3u"):
+		playlistName = playlistName + ".m3u"
+		
+	print(playlistDirectory)
+	print(playlistName)
+	print("Creating new playlist file... " + playlistDirectory + "/" + playlistName)
+	
+	# Open the playlist file
+	return FileAccess.open(playlistDirectory + playlistName, FileAccess.WRITE_READ)
+
+# ------------- Generate Playlist --------------------------
+func _on_generate_playlist_button_pressed() -> void:
+	$Layout/Player/Controls/MusicControls/NewPlaylistFileDialog.visible = true
+
+# ---------------------------------------
+func _on_new_playlist_file_dialog_dir_selected(dir: String) -> void:
+	var playlistFile = create_new_playlist()
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text = ""
+	# Recursively traverse the directory to build the playlist
+	traverseDirectory(dir, playlistFile)
+	update_playlist_directory(playlistDirectory)
+
+# ---------------------------------------
+func traverseDirectory(dir: String, playlistFile: FileAccess) -> void:
+	var files = DirAccess.get_files_at(dir)
+	for file in files:
+		if file.ends_with(".mp3"):
+			playlistFile.store_line(dir + "/" + file)
+	
+	var directories = DirAccess.get_directories_at(dir)
+	print(str(directories))
+	for subdirectory in directories:
+		traverseDirectory(dir + "/" + subdirectory, playlistFile)
+
+# ------------- Playlist Directory --------------------------
 # Opens a directory and displays all m3u playlists within (non-recursively)
 func update_playlist_directory(dir: String) -> void:
 	var files = DirAccess.get_files_at(dir)
 	
 	# Clear everything
 	allPlaylists.clear()
-	clear_now_playing()
 	
 	# Update the directory
-	playlistDirectory = dir + "/"
+	playlistDirectory = dir
+	if !playlistDirectory.ends_with("/"):
+		playlistDirectory = playlistDirectory + "/"
 	
 	# Populate the playlists
 	for playlistFile in files:
@@ -174,7 +225,7 @@ func _on_time_slider_drag_ended(value_changed: bool) -> void:
 # ------------- Open Playlist --------------------------
 func _on_open_playlist_button_pressed() -> void:
 	$Layout/Player/Controls/MusicControls/PlaylistFileDialog.visible = true
-	
+
 # ---------------------------------------
 # Opens a playlist and plays a song
 func _on_playlist_file_selected(path: String) -> void:
@@ -187,12 +238,13 @@ func _on_playlist_file_selected(path: String) -> void:
 	else:
 		printerr("Selected file is not an .m3u")
 		pass
-		
+
 # ---------------------------------------
 # Opens an m3u and stores each relative path in an array to serve as the active playlist
   # ?? How big can the playlist get before this gets weird ??
 func open_playlist(path: String) -> void:
 	update_playlist_directory(path.get_base_dir() + "/")
+	activePlaylist.clear()
 	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.text = path.get_file()
 	var file = FileAccess.open(path, FileAccess.READ)
 	while !file.eof_reached():
