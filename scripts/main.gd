@@ -3,7 +3,7 @@ extends Control
 var playlistDirectory: String
 @onready var allPlaylists = $Layout/PrimaryWindow/PlaylistDirectory
 
-@onready var activePlaylist = $Layout/PrimaryWindow/SongList
+@onready var activePlaylist = $Layout/PrimaryWindow/SongPanel/SongList
 var activePlaylistIndex: int
 var shuffle: bool
 
@@ -122,7 +122,6 @@ func update_playlist_directory(dir: String) -> void:
 # ---------------------------------------
 # Handles a playlist being selected or unselected
 func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
-	
 	# If there's no song playing, do nothing
 	if !$NowPlaying.playing:
 		return
@@ -194,6 +193,7 @@ func _on_playlist_file_selected(path: String) -> void:
   # ?? How big can the playlist get before this gets weird ??
 func open_playlist(path: String) -> void:
 	update_playlist_directory(path.get_base_dir() + "/")
+	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.text = path.get_file()
 	var file = FileAccess.open(path, FileAccess.READ)
 	while !file.eof_reached():
 		var currentLine = file.get_line()
