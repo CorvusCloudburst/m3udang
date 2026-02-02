@@ -135,6 +135,9 @@ func _on_generate_playlist_button_pressed() -> void:
 # ---------------------------------------
 func _on_new_playlist_file_dialog_dir_selected(dir: String) -> void:
 	var playlistFile = create_new_playlist()
+	if !playlistDirectory:
+		print("Whoops! No playlist directory selected.")
+		return
 	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text = ""
 	# Recursively traverse the directory to build the playlist
 	traverseDirectory(dir, playlistFile)
