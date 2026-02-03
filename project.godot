@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="M3udang"
 run/main_scene="uid://btksxy5ipbvkv"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="uid://cv8sl6g2aix0r"
+config/icon="uid://b6d20jmpvb5sq"
 
 [audio]
 
