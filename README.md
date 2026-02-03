@@ -4,7 +4,7 @@
 An m3u playlist manager. 
 
 <img src="packaging/demo.gif" />
-<br><br><br>
+<br><br>
 
 # Getting started
 
