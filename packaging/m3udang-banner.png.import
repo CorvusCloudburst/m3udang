@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byebk3s5fg88t"
-path="res://.godot/imported/m3udang-banner.png-91c43d9c8ecea475198bee1cb186b9d6.ctex"
+uid="uid://crtjlp11p2o7s"
+path="res://.godot/imported/m3udang-banner.png-10341a56c8a25e3d0b04ad44d12bf299.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/m3udang-banner.png"
-dest_files=["res://.godot/imported/m3udang-banner.png-91c43d9c8ecea475198bee1cb186b9d6.ctex"]
+source_file="res://packaging/m3udang-banner.png"
+dest_files=["res://.godot/imported/m3udang-banner.png-10341a56c8a25e3d0b04ad44d12bf299.ctex"]
 
 [params]
 

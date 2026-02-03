@@ -229,11 +229,13 @@ vertical = true
 layout_mode = 2
 text = "(artist)"
 horizontal_alignment = 1
+text_overrun_behavior = 3
 
 [node name="TrackName" type="Label" parent="Layout/Player/Controls/TrackInfo" unique_id=832247169]
 layout_mode = 2
 text = "(title)"
 horizontal_alignment = 1
+text_overrun_behavior = 3
 
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]

@@ -49,16 +49,11 @@ func play_current_song() -> void:
 	allPlaylists.deselect_all()
 	activePlaylist.select(activePlaylistIndex)
 	
-	# Highlight the playlists that contain the song
-	for index in allPlaylists.item_count:
-		var playlistName = allPlaylists.get_item_text(index)
-		var playlistFile = FileAccess.open(playlistDirectory + playlistName, FileAccess.READ)
-		if playlistFile.get_as_text().contains(activePlaylist.get_item_text(activePlaylistIndex)):
-			allPlaylists.select(index, false)
+	select_containing_playlists()
 	
 	# Play the song
 	play_song_at_path(activePlaylist.get_item_text(activePlaylistIndex))
-	
+
 # ---------------------------------------
 # Advances to the next song, then plays it
 func play_next_song() -> void:
@@ -118,12 +113,13 @@ func create_new_playlist() -> FileAccess:
 	
 	# Ensure the playlist is named validly
 	var playlistName: String = $Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text
+	
+	# Safety checks
+	if playlistName.is_empty():
+		printerr("No playlist name set.")
+		return
 	if !playlistName.ends_with(".m3u"):
 		playlistName = playlistName + ".m3u"
-		
-	print(playlistDirectory)
-	print(playlistName)
-	print("Creating new playlist file... " + playlistDirectory + "/" + playlistName)
 	
 	# Open the playlist file
 	return FileAccess.open(playlistDirectory + playlistName, FileAccess.WRITE_READ)
@@ -172,6 +168,8 @@ func update_playlist_directory(dir: String) -> void:
 	for playlistFile in files:
 		if playlistFile.ends_with(".m3u"):
 			allPlaylists.add_item(playlistFile)
+			
+	select_containing_playlists()
 
 # ---------------------------------------
 # Handles a playlist being selected or unselected
@@ -201,6 +199,15 @@ func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
 		# Rewrite the playlist file without the removed song
 		var newFile = FileAccess.open(fullFileName, FileAccess.WRITE)
 		newFile.store_string(file_song_removed)
+
+# ---------------------------------------
+# Highlight the playlists that contain the currently playing song
+func select_containing_playlists() -> void:
+	for index in allPlaylists.item_count:
+		var playlistName = allPlaylists.get_item_text(index)
+		var playlistFile = FileAccess.open(playlistDirectory + playlistName, FileAccess.READ)
+		if playlistFile.get_as_text().contains(activePlaylist.get_item_text(activePlaylistIndex)):
+			allPlaylists.select(index, false)
 
 
 # -----------------------------------------------------------------
