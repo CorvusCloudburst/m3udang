@@ -7,6 +7,9 @@ var playlistDirectory: String
 var activePlaylistIndex: int
 var shuffle: bool
 
+func _ready() -> void:
+	Globals.themeColor = Color.LIGHT_SLATE_GRAY
+
 func _process(_delta) -> void:
 	Globals.seconds = $NowPlaying.get_playback_position()
 
@@ -314,6 +317,10 @@ func _on_color_picker_color_changed(color: Color) -> void:
 	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.add_theme_color_override("font_placeholder_color", dimmedColor)
 	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton.self_modulate = color
 	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton.self_modulate = color
+	
+	# Visualizer Menu
+	$Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect.add_theme_color_override("font_color", color)
+	$Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider.self_modulate = dimmedColor
 	
 	# Song Panel
 	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.add_theme_color_override("font_color", color)

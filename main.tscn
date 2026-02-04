@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://cn2bvdgs0pakr" path="res://icons/play.svg" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://1vh8bl6vbihf" path="res://icons/new-playlist.svg" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://pmdkjwskg44k" path="res://scripts/time_slider.gd" id="3_kek77"]
+[ext_resource type="Script" uid="uid://djid3ykkude6l" path="res://visualizer_panel.gd" id="4_dg77c"]
 [ext_resource type="Texture2D" uid="uid://b41pv4hmmqc2y" path="res://icons/sparkles.svg" id="4_kek77"]
 [ext_resource type="Texture2D" uid="uid://ctwwwlgct1g1l" path="res://icons/ordered.svg" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://u8hdk8nredkp" path="res://icons/stepBack.svg" id="5_272bh"]
 [ext_resource type="Texture2D" uid="uid://df6bvhjv3av33" path="res://icons/palette.svg" id="5_efxa6"]
+[ext_resource type="Script" uid="uid://r2tenxaupqw3" path="res://visualizer_select.gd" id="5_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://fn5p0dtakd1k" path="res://icons/stepForward.svg" id="7_5vw27"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
@@ -102,9 +104,35 @@ item_count = 1
 item_0/text = "(empty)"
 item_0/disabled = true
 
-[node name="Visualizer" type="PanelContainer" parent="Layout/PrimaryWindow" unique_id=180767542]
+[node name="VisualizerPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=1249556217]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
+vertical = true
+script = ExtResource("4_dg77c")
+
+[node name="VisualizerControls" type="BoxContainer" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1698310628]
+layout_mode = 2
+
+[node name="VisualizerSelect" type="OptionButton" parent="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls" unique_id=1989195229]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+script = ExtResource("5_ycdy4")
+
+[node name="ShiftSlider" type="HSlider" parent="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls" unique_id=369615584]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.6
+max_value = 1.0
+step = 0.01
+
+[node name="Visualizer" type="PanelContainer" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=180767542]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("2_272bh")
 
 [node name="SongPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=404643709]
@@ -287,7 +315,9 @@ color = Color(1, 1, 1, 0)
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton" to="." method="_on_new_playlist_button_pressed"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
-[connection signal="resized" from="Layout/PrimaryWindow/Visualizer" to="Layout/PrimaryWindow/Visualizer" method="_on_resized"]
+[connection signal="item_selected" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_visualizer_select_item_selected"]
+[connection signal="value_changed" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_shift_slider_value_changed"]
+[connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel/Visualizer" to="Layout/PrimaryWindow/VisualizerPanel/Visualizer" method="_on_resized"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongPanel/SongList" to="." method="_on_song_list_item_activated"]
 [connection signal="drag_ended" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_ended"]
 [connection signal="drag_started" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_started"]
