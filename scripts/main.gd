@@ -50,6 +50,7 @@ func play_current_song() -> void:
 	activePlaylist.select(activePlaylistIndex)
 	
 	select_containing_playlists()
+	activePlaylist.ensure_current_is_visible()
 	
 	# Play the song
 	play_song_at_path(activePlaylist.get_item_text(activePlaylistIndex))
@@ -86,6 +87,7 @@ func clear_now_playing() -> void:
 # ---------------------------------------
 # Toggles the play/pause icon depending on whether a song is playing
 func set_play_pause_button() -> void:
+	Globals.playing = !$NowPlaying.stream_paused
 	# Toggle button icon to indicate current state
 	var playButton = $Layout/Player/Controls/MusicControls/PlayPauseButton
 	if $NowPlaying.stream_paused: 
@@ -209,7 +211,6 @@ func select_containing_playlists() -> void:
 		if playlistFile.get_as_text().contains(activePlaylist.get_item_text(activePlaylistIndex)):
 			allPlaylists.select(index, false)
 
-
 # -----------------------------------------------------------------
 # Active Playlist
 # -----------------------------------------------------------------
@@ -290,3 +291,41 @@ func _on_step_forward_pressed() -> void:
 # ------------- Volume --------------------------
 func _on_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), value)
+
+# ------------- Color --------------------------
+func _on_color_button_pressed() -> void:
+	var colorPicker = $Layout/Player/Controls/ColorButton/ColorPicker
+	colorPicker.visible = !colorPicker.visible
+
+func _on_color_picker_color_changed(color: Color) -> void:
+	Globals.themeColor = color
+	var dimmedColor = Color(color)
+	dimmedColor.a = 0.5
+	
+	# Overlay
+	$ColorOverlay.color = dimmedColor
+	
+	# Sliders
+	$Layout/Player/TimeSlider.self_modulate = dimmedColor
+	$Layout/Player/Controls/MusicControls/VolumeSlider.self_modulate = dimmedColor
+	
+	# Playlist Panel
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.add_theme_color_override("font_color", color)
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.add_theme_color_override("font_placeholder_color", dimmedColor)
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton.self_modulate = color
+	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton.self_modulate = color
+	
+	# Song Panel
+	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.add_theme_color_override("font_color", color)
+	
+	# Player
+	$Layout/Player/Controls/MusicControls/OpenPlaylistButton.self_modulate = color
+	$Layout/Player/Controls/MusicControls/ShuffleButton.self_modulate = color
+	$Layout/Player/Controls/MusicControls/StepBack.self_modulate = color
+	$Layout/Player/Controls/MusicControls/PlayPauseButton.self_modulate = color
+	$Layout/Player/Controls/MusicControls/StepForward.self_modulate = color
+	
+	$Layout/Player/Controls/TrackInfo/TrackArtist.add_theme_color_override("font_color", color)
+	$Layout/Player/Controls/TrackInfo/TrackName.add_theme_color_override("font_color", color)
+	
+	$Layout/Player/Controls/ColorButton.self_modulate = color

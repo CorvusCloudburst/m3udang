@@ -21,13 +21,17 @@ func _ready() -> void:
 
 # ---------------------------------------
 func _process(_delta: float) -> void:
-	_update_spectrum_data()
-	queue_redraw()
+	if Globals.playing:
+		_update_spectrum_data()
+		queue_redraw()
 
 # ---------------------------------------
 func _draw() -> void:
 	for i: int in BAR_COUNT:
 		var color: Color = Color.from_hsv((BAR_COUNT * 0.6 + i * 0.5) / BAR_COUNT, 0.4, 0.7, 0.7)
+		if (Globals.themeColor):
+			# Tint toward theme color
+			color = color.lerp(Globals.themeColor, 0.5)
 		var rectangle: Rect2 = Rect2(
 			i * bar_width,            # Position X
 			size.y - bars[i].actual,  # Position Y

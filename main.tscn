@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b41pv4hmmqc2y" path="res://icons/sparkles.svg" id="4_kek77"]
 [ext_resource type="Texture2D" uid="uid://ctwwwlgct1g1l" path="res://icons/ordered.svg" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://u8hdk8nredkp" path="res://icons/stepBack.svg" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://df6bvhjv3av33" path="res://icons/palette.svg" id="5_efxa6"]
 [ext_resource type="Texture2D" uid="uid://fn5p0dtakd1k" path="res://icons/stepForward.svg" id="7_5vw27"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
@@ -58,6 +59,22 @@ vertical = true
 layout_mode = 2
 placeholder_text = "(new playlist)"
 
+[node name="NewPlaylistButton" type="Button" parent="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName" unique_id=613991651]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_right = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("3_4c57u")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
 [node name="GeneratePlaylistButton" type="Button" parent="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName" unique_id=123921787]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
@@ -74,27 +91,12 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="NewPlaylistButton" type="Button" parent="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName" unique_id=613991651]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -30.0
-offset_right = -30.0
-grow_horizontal = 0
-grow_vertical = 2
-icon = ExtResource("3_4c57u")
-flat = true
-icon_alignment = 1
-expand_icon = true
-
 [node name="PlaylistDirectory" type="ItemList" parent="Layout/PrimaryWindow/PlaylistPanel" unique_id=2137493073]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.4738877, 0.4738877, 0.4738877, 1)
 select_mode = 2
 item_count = 1
 item_0/text = "(empty)"
@@ -122,6 +124,7 @@ layout_direction = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.4738877, 0.4738877, 0.4738877, 1)
 text_overrun_behavior = 0
 item_count = 1
 item_0/text = "(empty)"
@@ -237,9 +240,52 @@ text = "(title)"
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
+[node name="ColorButton" type="Button" parent="Layout/Player/Controls" unique_id=1128865491]
+custom_minimum_size = Vector2(40, 35)
+layout_mode = 2
+tooltip_text = "Theme color"
+icon = ExtResource("5_efxa6")
+flat = true
+expand_icon = true
+
+[node name="ColorPicker" type="ColorPicker" parent="Layout/Player/Controls/ColorButton" unique_id=1043730235]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -268.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+edit_alpha = false
+edit_intensity = false
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="ColorOverlay" type="ColorRect" parent="." unique_id=670657192]
+self_modulate = Color(1, 1, 1, 0.039215688)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
-[connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton" to="." method="_on_new_playlist_button_pressed"]
+[connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
 [connection signal="resized" from="Layout/PrimaryWindow/Visualizer" to="Layout/PrimaryWindow/Visualizer" method="_on_resized"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongPanel/SongList" to="." method="_on_song_list_item_activated"]
@@ -253,3 +299,5 @@ text_overrun_behavior = 3
 [connection signal="pressed" from="Layout/Player/Controls/MusicControls/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="Layout/Player/Controls/MusicControls/StepForward" to="." method="_on_step_forward_pressed"]
 [connection signal="value_changed" from="Layout/Player/Controls/MusicControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="Layout/Player/Controls/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="color_changed" from="Layout/Player/Controls/ColorButton/ColorPicker" to="." method="_on_color_picker_color_changed"]
