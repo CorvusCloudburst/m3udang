@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b41pv4hmmqc2y"
-path="res://.godot/imported/sparkles.svg-76661046e9d592db653dbc36834aa74a.ctex"
+uid="uid://2cut7xbt86y8"
+path="res://.godot/imported/m3udang-banner-dark.png-abb81ea912f6740db9b915b2b2bca763.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/sparkles.svg"
-dest_files=["res://.godot/imported/sparkles.svg-76661046e9d592db653dbc36834aa74a.ctex"]
+source_file="res://packaging/m3udang-banner-dark.png"
+dest_files=["res://.godot/imported/m3udang-banner-dark.png-abb81ea912f6740db9b915b2b2bca763.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

@@ -94,9 +94,9 @@ func set_play_pause_button() -> void:
 	# Toggle button icon to indicate current state
 	var playButton = $Layout/Player/Controls/MusicControls/PlayPauseButton
 	if $NowPlaying.stream_paused: 
-		playButton.icon = preload("res://icons/play.svg")
+		playButton.icon = preload("res://icons/play.png")
 	else: 
-		playButton.icon = preload("res://icons/pause.svg")
+		playButton.icon = preload("res://icons/pause.png")
 	
 
 # -----------------------------------------------------------------
@@ -273,9 +273,9 @@ func _on_shuffle_button_pressed() -> void:
 	shuffle = !shuffle
 	# Toggle button icon to indicate current state
 	if shuffle:
-		shuffleButton.icon = preload("res://icons/shuffle.svg")
+		shuffleButton.icon = preload("res://icons/shuffle.png")
 	else:
-		shuffleButton.icon = preload("res://icons/ordered.svg")
+		shuffleButton.icon = preload("res://icons/ordered.png")
 
 # ------------- Step Back --------------------------
 # Misleadingly named. Just restarts the current song. Shh don't tell anyone.

@@ -14,7 +14,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="M3udang"
+config/name="m3udang"
+config/description="m3u editing made simple."
 run/main_scene="uid://btksxy5ipbvkv"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cv8sl6g2aix0r"
@@ -29,4 +30,8 @@ Globals="*uid://c14gfjkvo2ef0"
 
 [display]
 
-window/size/viewport_width=1120
+window/stretch/aspect="expand"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

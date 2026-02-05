@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uqw18rb0fupn"
-path="res://.godot/imported/volume.svg-f90f8046e099e9fb7f47564f0a4bffbe.ctex"
+uid="uid://pa1wa8i3r66s"
+path="res://.godot/imported/stepBack.png-2ca48a88867ac1bf3ec920553396c014.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/volume.svg"
-dest_files=["res://.godot/imported/volume.svg-f90f8046e099e9fb7f47564f0a4bffbe.ctex"]
+source_file="res://icons/stepBack.png"
+dest_files=["res://.godot/imported/stepBack.png-2ca48a88867ac1bf3ec920553396c014.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
