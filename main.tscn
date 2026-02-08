@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d3d2rcf5bxbf5" path="res://icons/play.png" id="11_w48qg"]
 [ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="12_vivmo"]
 [ext_resource type="Texture2D" uid="uid://dq7v45ess8cn3" path="res://icons/palette.png" id="13_vivmo"]
+[ext_resource type="Texture2D" uid="uid://cu6ttp115bc7m" path="res://icons/diamond.png" id="13_w48qg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 
@@ -261,16 +262,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 vertical = true
 
-[node name="TrackArtist" type="Label" parent="Layout/Player/Controls/TrackInfo" unique_id=1575882278]
-layout_mode = 2
-text = "(artist)"
-horizontal_alignment = 1
-text_overrun_behavior = 3
-
 [node name="TrackName" type="Label" parent="Layout/Player/Controls/TrackInfo" unique_id=832247169]
 layout_mode = 2
 text = "(title)"
 horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="LowerRow" type="BoxContainer" parent="Layout/Player/Controls/TrackInfo" unique_id=416937786]
+layout_mode = 2
+
+[node name="TrackArtist" type="Label" parent="Layout/Player/Controls/TrackInfo/LowerRow" unique_id=1575882278]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "(artist)"
+horizontal_alignment = 2
+text_overrun_behavior = 3
+
+[node name="Divider" type="MarginContainer" parent="Layout/Player/Controls/TrackInfo/LowerRow" unique_id=168362403]
+layout_mode = 2
+
+[node name="DividerImage" type="TextureRect" parent="Layout/Player/Controls/TrackInfo/LowerRow/Divider" unique_id=1851700333]
+layout_mode = 2
+texture = ExtResource("13_w48qg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TrackAlbum" type="Label" parent="Layout/Player/Controls/TrackInfo/LowerRow" unique_id=1135420601]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "(album)"
 text_overrun_behavior = 3
 
 [node name="ColorButton" type="Button" parent="Layout/Player/Controls" unique_id=1128865491]
@@ -279,6 +299,7 @@ layout_mode = 2
 tooltip_text = "Theme color"
 icon = ExtResource("13_vivmo")
 flat = true
+icon_alignment = 1
 expand_icon = true
 
 [node name="ColorPicker" type="ColorPicker" parent="Layout/Player/Controls/ColorButton" unique_id=1043730235]
