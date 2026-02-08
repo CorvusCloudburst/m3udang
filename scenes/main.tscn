@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://btksxy5ipbvkv"]
 
-[ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://scripts/main.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://civ00mdfxk18u" path="res://scripts/visualizer.gd" id="2_272bh"]
-[ext_resource type="Texture2D" uid="uid://dsad5vfbv7uxe" path="res://icons/new-playlist.png" id="2_ycdy4"]
-[ext_resource type="Script" uid="uid://pmdkjwskg44k" path="res://scripts/time_slider.gd" id="3_kek77"]
-[ext_resource type="Texture2D" uid="uid://mfgdhrvuj2fg" path="res://icons/music-directory.png" id="3_w48qg"]
-[ext_resource type="Script" uid="uid://djid3ykkude6l" path="res://visualizer_panel.gd" id="4_dg77c"]
-[ext_resource type="Script" uid="uid://r2tenxaupqw3" path="res://visualizer_select.gd" id="5_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://cekeohsm7j4qn" path="res://icons/music-file.png" id="8_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://b6i81iprx4ho7" path="res://icons/ordered.png" id="9_w48qg"]
-[ext_resource type="Texture2D" uid="uid://pa1wa8i3r66s" path="res://icons/stepBack.png" id="10_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://d3d2rcf5bxbf5" path="res://icons/play.png" id="11_w48qg"]
-[ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="12_vivmo"]
-[ext_resource type="Texture2D" uid="uid://dq7v45ess8cn3" path="res://icons/palette.png" id="13_vivmo"]
-[ext_resource type="Texture2D" uid="uid://cu6ttp115bc7m" path="res://icons/diamond.png" id="13_w48qg"]
+[ext_resource type="Script" uid="uid://dtjcxkv2br144" path="res://scripts/main.gd" id="1_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://dsad5vfbv7uxe" path="res://icons/new-playlist.png" id="2_jkv2x"]
+[ext_resource type="Texture2D" uid="uid://mfgdhrvuj2fg" path="res://icons/music-directory.png" id="3_jbj1t"]
+[ext_resource type="Script" uid="uid://djid3ykkude6l" path="res://scripts/visualizer_panel.gd" id="4_muem4"]
+[ext_resource type="Script" uid="uid://r2tenxaupqw3" path="res://scripts/visualizer_select.gd" id="5_dp3eg"]
+[ext_resource type="Script" uid="uid://civ00mdfxk18u" path="res://scripts/visualizer.gd" id="6_0ld40"]
+[ext_resource type="Script" uid="uid://pmdkjwskg44k" path="res://scripts/time_slider.gd" id="7_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://cekeohsm7j4qn" path="res://icons/music-file.png" id="8_yc10j"]
+[ext_resource type="Texture2D" uid="uid://b6i81iprx4ho7" path="res://icons/ordered.png" id="9_jscy8"]
+[ext_resource type="Texture2D" uid="uid://pa1wa8i3r66s" path="res://icons/stepBack.png" id="10_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://d3d2rcf5bxbf5" path="res://icons/play.png" id="11_y6deb"]
+[ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="12_og1vs"]
+[ext_resource type="Texture2D" uid="uid://cu6ttp115bc7m" path="res://icons/diamond.png" id="13_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://dq7v45ess8cn3" path="res://icons/palette.png" id="14_vxglm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 
@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ig7tw")
+script = ExtResource("1_a8y0u")
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=329431657]
 layout_mode = 1
@@ -74,7 +74,7 @@ offset_right = -25.0
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "New empty playlist"
-icon = ExtResource("2_ycdy4")
+icon = ExtResource("2_jkv2x")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -90,7 +90,7 @@ offset_left = -8.0
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Generate playlist from a directory"
-icon = ExtResource("3_w48qg")
+icon = ExtResource("3_jbj1t")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -112,7 +112,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 vertical = true
-script = ExtResource("4_dg77c")
+script = ExtResource("4_muem4")
 
 [node name="VisualizerControls" type="BoxContainer" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1698310628]
 layout_mode = 2
@@ -121,7 +121,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 flat = true
-script = ExtResource("5_ycdy4")
+script = ExtResource("5_dp3eg")
 
 [node name="ShiftSlider" type="HSlider" parent="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls" unique_id=369615584]
 visible = false
@@ -137,7 +137,7 @@ step = 0.01
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("2_272bh")
+script = ExtResource("6_0ld40")
 
 [node name="SongPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=404643709]
 layout_mode = 2
@@ -173,7 +173,7 @@ vertical = true
 [node name="TimeSlider" type="HSlider" parent="Layout/Player" unique_id=478064941]
 layout_mode = 2
 scrollable = false
-script = ExtResource("3_kek77")
+script = ExtResource("7_gqmmt")
 
 [node name="Controls" type="BoxContainer" parent="Layout/Player" unique_id=1743962511]
 layout_mode = 2
@@ -207,7 +207,7 @@ access = 2
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Open playlist"
-icon = ExtResource("8_ycdy4")
+icon = ExtResource("8_yc10j")
 flat = true
 expand_icon = true
 
@@ -215,7 +215,7 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Toggle shuffle"
-icon = ExtResource("9_w48qg")
+icon = ExtResource("9_jscy8")
 flat = true
 expand_icon = true
 
@@ -223,7 +223,7 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Restart song"
-icon = ExtResource("10_ycdy4")
+icon = ExtResource("10_pm3ni")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -233,7 +233,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Play/Pause"
 theme_override_styles/focus = SubResource("StyleBoxFlat_lquwl")
-icon = ExtResource("11_w48qg")
+icon = ExtResource("11_y6deb")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -242,7 +242,7 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Next song"
-icon = ExtResource("12_vivmo")
+icon = ExtResource("12_og1vs")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -283,7 +283,7 @@ layout_mode = 2
 
 [node name="DividerImage" type="TextureRect" parent="Layout/Player/Controls/TrackInfo/LowerRow/Divider" unique_id=1851700333]
 layout_mode = 2
-texture = ExtResource("13_w48qg")
+texture = ExtResource("13_2wyq8")
 expand_mode = 3
 stretch_mode = 5
 
@@ -297,7 +297,7 @@ text_overrun_behavior = 3
 custom_minimum_size = Vector2(40, 35)
 layout_mode = 2
 tooltip_text = "Theme color"
-icon = ExtResource("13_vivmo")
+icon = ExtResource("14_vxglm")
 flat = true
 icon_alignment = 1
 expand_icon = true
