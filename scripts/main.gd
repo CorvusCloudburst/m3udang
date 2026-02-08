@@ -37,7 +37,8 @@ func play_song_at_path(relativePath: String) -> void:
 	
 	# Update song details in the player
 	$Layout/Player/Controls/TrackInfo/TrackName.text = tagReader.getTrackName()
-	$Layout/Player/Controls/TrackInfo/TrackArtist.text = tagReader.getArtist()
+	$Layout/Player/Controls/TrackInfo/LowerRow/TrackArtist.text = tagReader.getArtist()
+	$Layout/Player/Controls/TrackInfo/LowerRow/TrackAlbum.text = tagReader.getAlbum()
 	Globals.songLength = stream.get_length()
 	
 	# Play the song
@@ -332,7 +333,9 @@ func _on_color_picker_color_changed(color: Color) -> void:
 	$Layout/Player/Controls/MusicControls/PlayPauseButton.self_modulate = color
 	$Layout/Player/Controls/MusicControls/StepForward.self_modulate = color
 	
-	$Layout/Player/Controls/TrackInfo/TrackArtist.add_theme_color_override("font_color", color)
 	$Layout/Player/Controls/TrackInfo/TrackName.add_theme_color_override("font_color", color)
+	$Layout/Player/Controls/TrackInfo/LowerRow/TrackArtist.add_theme_color_override("font_color", color)
+	$Layout/Player/Controls/TrackInfo/LowerRow/Divider/DividerImage.self_modulate = color
+	$Layout/Player/Controls/TrackInfo/LowerRow/TrackAlbum.add_theme_color_override("font_color", color)
 	
 	$Layout/Player/Controls/ColorButton.self_modulate = color
