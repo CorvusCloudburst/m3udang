@@ -133,7 +133,7 @@ tooltip_text = "Hue shift"
 max_value = 1.0
 step = 0.01
 
-[node name="Visualizer" type="TextureRect" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1326252420]
+[node name="VisualizerContainer" type="TextureRect" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1326252420]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -344,7 +344,7 @@ color = Color(1, 1, 1, 0)
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
 [connection signal="item_selected" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_visualizer_select_item_selected"]
 [connection signal="value_changed" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_shift_slider_value_changed"]
-[connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel/Visualizer" to="Layout/PrimaryWindow/VisualizerPanel/Visualizer" method="_on_resized"]
+[connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerContainer" to="Layout/PrimaryWindow/VisualizerPanel/VisualizerContainer" method="_on_resized"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongPanel/SongList" to="." method="_on_song_list_item_activated"]
 [connection signal="drag_ended" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_ended"]
 [connection signal="drag_started" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_started"]

@@ -8,8 +8,8 @@ extends TextureRect
 # ---------------------------------------
 
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
-@export var visualizerType: String
-@export var shift: float
+@export var visualizer_type: String
+@export var hue_shift: float
 
 # Bar Visualizers
 const RANGE_COUNT: int = 64
@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 # ---------------------------------------
 func _draw() -> void:
 	# Determine which visualizer to render and draw it.
-	if visualizerType.contains("Bars"):
+	if visualizer_type.contains("Bars"):
 		draw_bars()
 	else:
 		draw_aurora()
@@ -53,7 +53,7 @@ func draw_bars() -> void:
 	for i: int in RANGE_COUNT:
 		
 		var color: Color
-		match visualizerType:
+		match visualizer_type:
 			"Bars (Static Rainbow)": color = static_rainbow(i)
 			"Bars (Dynamic Rainbow)": color = dynamic_rainbow(i)
 			"Bars (Dynamic Theme)": color = dynamic_theme(i)
@@ -72,7 +72,7 @@ func draw_aurora() -> void:
 	for i: int in RANGE_COUNT:
 
 		var color: Color
-		match visualizerType:
+		match visualizer_type:
 			"Aurora (Static Rainbow)": color = static_rainbow(i)
 			"Aurora (Rainbow)": color = dynamic_rainbow(i)
 			"Aurora (Theme)": color = dynamic_theme(i)
@@ -118,11 +118,11 @@ func draw_aurora() -> void:
 
 # -------------
 func static_rainbow(index: int) -> Color:
-	return Color.from_hsv((RANGE_COUNT * shift + index * 0.9) / RANGE_COUNT, 0.6, 0.7, 0.9)
+	return Color.from_hsv((RANGE_COUNT * hue_shift + index * 0.9) / RANGE_COUNT, 0.6, 0.7, 0.9)
 	
 # -------------
 func dynamic_rainbow(index:int) -> Color:
-	var shiftedValue = spectrum[index].energyCurrent + shift
+	var shiftedValue = spectrum[index].energyCurrent + hue_shift
 	if shiftedValue > 1.0:
 		shiftedValue = shiftedValue - 1.0
 	return rainbow_gradient.sample(shiftedValue)
@@ -137,7 +137,7 @@ func dynamic_theme(index:int) -> Color:
 
 # ---------------------------------------
 func _update_spectrum_data() -> void:
-	var lerp_weight_key = LERP_WEIGHTS.keys().filter(func(key): return visualizerType.contains((key))).get(0)
+	var lerp_weight_key = LERP_WEIGHTS.keys().filter(func(key): return visualizer_type.contains((key))).get(0)
 	var lerp_weight = LERP_WEIGHTS[lerp_weight_key]
 	
 	for i: int in RANGE_COUNT:
