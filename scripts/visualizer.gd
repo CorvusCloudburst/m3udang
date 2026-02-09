@@ -1,20 +1,19 @@
-# Tutorial (Primary): https://www.youtube.com/watch?v=TFNfzf_H530
-# Tutorial (Frequency math): https://www.youtube.com/watch?v=jttL809UdnQ
+# Useful resources for understanding this script:
+# - Original setup: https://www.youtube.com/watch?v=TFNfzf_H530
+# - Better spectrum math: https://www.youtube.com/watch?v=jttL809UdnQ
+# - Inheritance in Godot: https://www.youtube.com/watch?v=LncJsj1vqSM
 
 extends TextureRect
 
 # ---------------------------------------
-# Spectrum Info
-const FREQ_MAX: float = 11050.0
-const MIN_DB: int = 60
-var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 
+var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 @export var visualizerType: String
 @export var shift: float
 
 # Bar Visualizers
 const RANGE_COUNT: int = 64
-var spectrum: Array[SpectrumRange] = []
+var spectrum: Array[VisualizerElement] = []
 var bar_width: float = 0.0
 
 # Reference gradients
@@ -30,7 +29,7 @@ func _ready() -> void:
 	spectrum_analyzer = AudioServer.get_bus_effect_instance(0,0)
 	_on_resized()
 	for i: int in RANGE_COUNT:
-		spectrum.append(SpectrumRange.new())
+		spectrum.append(VisualizerElement.new())
 		rainbow_gradient.add_point(1.0/float(RANGE_COUNT + 1) + float(i)/float(RANGE_COUNT + 1), static_rainbow(i))
 	rainbow_gradient.add_point(1, static_rainbow(0))
 	rainbow_gradient.remove_point(0)
@@ -140,70 +139,13 @@ func dynamic_theme(index:int) -> Color:
 func _update_spectrum_data() -> void:
 	var lerp_weight_key = LERP_WEIGHTS.keys().filter(func(key): return visualizerType.contains((key))).get(0)
 	var lerp_weight = LERP_WEIGHTS[lerp_weight_key]
+	
 	for i: int in RANGE_COUNT:
-		# Represented frequency range
-		spectrum[i].hz_start = (i * FREQ_MAX) / RANGE_COUNT
-		spectrum[i].hz_end = ((i + 1) * FREQ_MAX) / RANGE_COUNT
-		
-		# Fancy sound stuff
-		spectrum[i].magnitude = spectrum_analyzer.get_magnitude_for_frequency_range(spectrum[i].hz_start, spectrum[i].hz_end).length()
-		
-		# Adjust energy values
-		spectrum[i].energyCurrent = clampf((MIN_DB + linear_to_db(spectrum[i].magnitude)) / MIN_DB, 0, 1)
-		if spectrum[i].energyCurrent > spectrum[i].energyHigh:
-			spectrum[i].energyHigh = spectrum[i].energyCurrent
-		else:
-			spectrum[i].energyHigh = lerp(spectrum[i].energyHigh, spectrum[i].energyCurrent, lerp_weight)
-		if spectrum[i].energyCurrent <= 0:
-			spectrum[i].energyLow = lerp(spectrum[i].energyLow, spectrum[i].energyCurrent, lerp_weight)
-		spectrum[i].energyLerped = lerp(spectrum[i].energyLow, spectrum[i].energyHigh, lerp_weight)
-		
-		# Adjust relative height values
-		spectrum[i].heightCurrent = spectrum[i].energyCurrent * size.y * 15.0
-		if spectrum[i].heightCurrent > spectrum[i].heightHigh:
-			spectrum[i].heightHigh = spectrum[i].heightCurrent
-		else:
-			spectrum[i].heightHigh = lerp(spectrum[i].heightHigh, spectrum[i].heightCurrent, lerp_weight)
-		if spectrum[i].heightCurrent <= 0:
-			spectrum[i].heightLow = lerp(spectrum[i].heightLow, spectrum[i].heightCurrent, lerp_weight)
-		spectrum[i].heightLerped = lerp(spectrum[i].heightLow, spectrum[i].heightHigh, lerp_weight)
-		
-		# Adjust relative width values
-		spectrum[i].widthCurrent = spectrum[i].energyCurrent * size.x * 10.0
-		if spectrum[i].widthCurrent > spectrum[i].widthHigh:
-			spectrum[i].widthHigh = spectrum[i].widthCurrent
-		else:
-			spectrum[i].widthHigh = lerp(spectrum[i].widthHigh, spectrum[i].widthCurrent, lerp_weight)
-		if spectrum[i].widthCurrent <= 0:
-			spectrum[i].widthLow = lerp(spectrum[i].widthLow, spectrum[i].widthCurrent, lerp_weight)
-		spectrum[i].widthLerped = lerp(spectrum[i].widthLow, spectrum[i].widthHigh, lerp_weight)
+		spectrum[i].update_values(spectrum_analyzer, i, RANGE_COUNT, lerp_weight, size.x * 10, size.y * 15)
 
 # ---------------------------------------
 func _on_resized() -> void:
 	bar_width = size.x / RANGE_COUNT
 
-# ---------------------------------------
-class SpectrumRange:
-	var hz_start: float
-	var hz_end: float
-	var magnitude: float
-	
-	# Energy
-	var energyLerped: float
-	var energyCurrent: float
-	var energyHigh: float
-	var energyLow: float
-	
-	# Height
-	var heightLerped: float
-	var heightCurrent: float
-	var heightHigh: float
-	var heightLow: float
-	
-	# Width
-	var widthLerped: float
-	var widthCurrent: float
-	var widthHigh: float
-	var widthLow: float
 	
 	
