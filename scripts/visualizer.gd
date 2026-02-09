@@ -1,7 +1,7 @@
 # Tutorial (Primary): https://www.youtube.com/watch?v=TFNfzf_H530
 # Tutorial (Frequency math): https://www.youtube.com/watch?v=jttL809UdnQ
 
-extends PanelContainer
+extends TextureRect
 
 # ---------------------------------------
 # Spectrum Info
@@ -75,7 +75,7 @@ func draw_aurora() -> void:
 		var color: Color
 		match visualizerType:
 			"Aurora (Static Rainbow)": color = static_rainbow(i)
-			"Aurora (Dynamic Rainbow)": color = dynamic_rainbow(i)
+			"Aurora (Rainbow)": color = dynamic_rainbow(i)
 			"Aurora (Theme)": color = dynamic_theme(i)
 			_: color = Globals.themeColor
 		
