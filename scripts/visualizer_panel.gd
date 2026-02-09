@@ -9,6 +9,11 @@ func _ready() -> void:
 # ------------- Visualizer Type --------------------------
 func _on_visualizer_select_item_selected(index: int) -> void:
 	$Visualizer.visualizerType = visualizerTypeSelect.get_item_text(index)
+	if $Visualizer.visualizerType.contains("Aurora"):
+		$Visualizer.texture = preload("res://packaging/night-sky.png")
+		$Visualizer.shift = 0.4
+	else:
+		$Visualizer.texture = null
 	updateControls()
 
 func _on_shift_slider_value_changed(value: float) -> void:
@@ -16,5 +21,4 @@ func _on_shift_slider_value_changed(value: float) -> void:
 	
 func updateControls() -> void:
 	var selectedTypeString: String = visualizerTypeSelect.get_item_text(visualizerTypeSelect.get_selected_id())
-	
 	$VisualizerControls/ShiftSlider.visible = selectedTypeString.contains("Rainbow")
