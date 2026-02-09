@@ -5,6 +5,8 @@ var visualizer_types: PackedStringArray = [
 	"Bars (Dynamic Rainbow)",
 	"Bars (Static Theme)",
 	"Bars (Dynamic Theme)",
+	"Aurora (Rainbow)",
+	"Aurora (Theme)",
 ]
 
 # Called when the node enters the scene tree for the first time.

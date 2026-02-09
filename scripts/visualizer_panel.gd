@@ -16,5 +16,4 @@ func _on_shift_slider_value_changed(value: float) -> void:
 	
 func updateControls() -> void:
 	var selectedTypeString: String = visualizerTypeSelect.get_item_text(visualizerTypeSelect.get_selected_id())
-	
 	$VisualizerControls/ShiftSlider.visible = selectedTypeString.contains("Rainbow")
