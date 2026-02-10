@@ -4,8 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dsad5vfbv7uxe" path="res://icons/new-playlist.png" id="2_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://mfgdhrvuj2fg" path="res://icons/music-directory.png" id="3_jbj1t"]
 [ext_resource type="Script" uid="uid://djid3ykkude6l" path="res://scripts/visualizer_panel.gd" id="4_muem4"]
-[ext_resource type="Script" uid="uid://r2tenxaupqw3" path="res://scripts/visualizer_select.gd" id="5_dp3eg"]
-[ext_resource type="Script" uid="uid://civ00mdfxk18u" path="res://scripts/visualizer.gd" id="6_0ld40"]
 [ext_resource type="Script" uid="uid://pmdkjwskg44k" path="res://scripts/time_slider.gd" id="7_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://cekeohsm7j4qn" path="res://icons/music-file.png" id="8_yc10j"]
 [ext_resource type="Texture2D" uid="uid://b6i81iprx4ho7" path="res://icons/ordered.png" id="9_jscy8"]
@@ -14,6 +12,21 @@
 [ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="12_og1vs"]
 [ext_resource type="Texture2D" uid="uid://cu6ttp115bc7m" path="res://icons/diamond.png" id="13_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://dq7v45ess8cn3" path="res://icons/palette.png" id="14_vxglm"]
+
+[sub_resource type="GDScript" id="GDScript_eb6dy"]
+script/source = "extends OptionButton
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+	#for index in visualizer_types.size():
+		#add_item(visualizer_types[index], index)
+"
+
+[sub_resource type="GDScript" id="GDScript_trceg"]
+script/source = "extends PanelContainer
+
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 
@@ -121,10 +134,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 flat = true
-script = ExtResource("5_dp3eg")
+script = SubResource("GDScript_eb6dy")
 
 [node name="ShiftSlider" type="HSlider" parent="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls" unique_id=369615584]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -133,12 +145,11 @@ tooltip_text = "Hue shift"
 max_value = 1.0
 step = 0.01
 
-[node name="Visualizer" type="TextureRect" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1326252420]
+[node name="VisualizerContainer" type="PanelContainer" parent="Layout/PrimaryWindow/VisualizerPanel" unique_id=1808799801]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-expand_mode = 1
-script = ExtResource("6_0ld40")
+script = SubResource("GDScript_trceg")
 
 [node name="SongPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=404643709]
 layout_mode = 2
@@ -344,7 +355,6 @@ color = Color(1, 1, 1, 0)
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
 [connection signal="item_selected" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_visualizer_select_item_selected"]
 [connection signal="value_changed" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_shift_slider_value_changed"]
-[connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel/Visualizer" to="Layout/PrimaryWindow/VisualizerPanel/Visualizer" method="_on_resized"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongPanel/SongList" to="." method="_on_song_list_item_activated"]
 [connection signal="drag_ended" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_ended"]
 [connection signal="drag_started" from="Layout/Player/TimeSlider" to="." method="_on_time_slider_drag_started"]
