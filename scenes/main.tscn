@@ -23,11 +23,6 @@ func _ready() -> void:
 		#add_item(visualizer_types[index], index)
 "
 
-[sub_resource type="GDScript" id="GDScript_trceg"]
-script/source = "extends PanelContainer
-
-"
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 
 [node name="Main" type="Control" unique_id=1697132214]
@@ -149,7 +144,6 @@ step = 0.01
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource("GDScript_trceg")
 
 [node name="SongPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=404643709]
 layout_mode = 2
@@ -353,6 +347,7 @@ color = Color(1, 1, 1, 0)
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton" to="." method="_on_new_playlist_button_pressed"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
+[connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_resized"]
 [connection signal="item_selected" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_visualizer_select_item_selected"]
 [connection signal="value_changed" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_shift_slider_value_changed"]
 [connection signal="item_activated" from="Layout/PrimaryWindow/SongPanel/SongList" to="." method="_on_song_list_item_activated"]

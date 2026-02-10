@@ -12,7 +12,7 @@ func _draw():
 		var rectangle: Rect2 = Rect2(
 			index * portioned_width,            	# Position X
 			size.y - elements[index].heightLerped,  # Position Y
-			portioned_width - 2,            	# Width
+			portioned_width - 1,            		# Width
 			elements[index].heightLerped            # Height
 		)
 		draw_rect(rectangle, color)

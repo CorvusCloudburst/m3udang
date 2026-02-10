@@ -32,18 +32,15 @@ func _ready() -> void:
 	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	spectrum_analyzer = AudioServer.get_bus_effect_instance(0,0)
-	_on_resized()
 	for i: int in element_count:
 		elements.append(VisualizerElement.new())
 
 func _process(_delta: float) -> void:
+	portioned_width = size.x / float(element_count)
+	portioned_height = size.y / float(element_count)
 	if Globals.playing:
 		update_spectrum_data()
 		queue_redraw() # Draw function implemented by subclasses
-
-func _on_resized() -> void:
-	portioned_width = size.x / element_count
-	portioned_height = size.y / element_count
 
 func update_spectrum_data() -> void:
 	for i: int in element_count:
