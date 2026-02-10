@@ -134,3 +134,5 @@ func refresh_visualizer_select() -> void:
 func _on_shift_slider_value_changed(value: float) -> void:
 	visualizer_instance.hue_shift = value
 	
+func _on_resized() -> void:
+	refresh_visualizer()
