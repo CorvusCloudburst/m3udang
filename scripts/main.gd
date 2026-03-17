@@ -260,13 +260,14 @@ func _on_playlist_file_selected(path: String) -> void:
 func open_playlist(path: String) -> void:
 	update_playlist_directory(path.get_base_dir() + "/")
 	activePlaylist.clear()
-	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.text = path.get_file()
+	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/CurrentPlaylist.text = path.get_file()
 	var file = FileAccess.open(path, FileAccess.READ)
 	while !file.eof_reached():
 		var currentLine = file.get_line()
 		# Ignore comments and anything that isn't an m3u
 		if !currentLine.begins_with("#") && currentLine.ends_with(".mp3"):
 			activePlaylist.add_item(currentLine)
+	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/TotalTracks.text = str(activePlaylist.item_count) + ' tracks'
 
 # ------------- Shuffle --------------------------
 func _on_shuffle_button_pressed() -> void:
@@ -325,7 +326,9 @@ func _on_color_picker_color_changed(color: Color) -> void:
 	$Layout/PrimaryWindow/VisualizerPanel.refresh_visualizer()
 	
 	# Song Panel
-	$Layout/PrimaryWindow/SongPanel/CurrentPlaylist.add_theme_color_override("font_color", color)
+	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/CurrentPlaylist.add_theme_color_override("font_color", color)
+	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/Divider/DividerImage.self_modulate = color
+	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/TotalTracks.add_theme_color_override("font_color", color)
 	
 	# Player
 	$Layout/Player/Controls/MusicControls/OpenPlaylistButton.self_modulate = color

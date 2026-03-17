@@ -62,7 +62,10 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="PlaylistPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=1424997715]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
 vertical = true
 
 [node name="NewPlaylistName" type="LineEdit" parent="Layout/PrimaryWindow/PlaylistPanel" unique_id=1549560697]
@@ -146,16 +149,41 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SongPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=404643709]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 vertical = true
 
-[node name="CurrentPlaylist" type="Label" parent="Layout/PrimaryWindow/SongPanel" unique_id=1988841899]
+[node name="PlaylistDetails" type="BoxContainer" parent="Layout/PrimaryWindow/SongPanel" unique_id=2088151282]
+layout_mode = 2
+alignment = 1
+
+[node name="CurrentPlaylist" type="Label" parent="Layout/PrimaryWindow/SongPanel/PlaylistDetails" unique_id=1988841899]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.5
 text = "(playlist name)"
 horizontal_alignment = 1
+
+[node name="Divider" type="MarginContainer" parent="Layout/PrimaryWindow/SongPanel/PlaylistDetails" unique_id=818178225]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="DividerImage" type="TextureRect" parent="Layout/PrimaryWindow/SongPanel/PlaylistDetails/Divider" unique_id=877662966]
+layout_mode = 2
+texture = ExtResource("13_2wyq8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TotalTracks" type="Label" parent="Layout/PrimaryWindow/SongPanel/PlaylistDetails" unique_id=982065257]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0 tracks"
 
 [node name="SongList" type="ItemList" parent="Layout/PrimaryWindow/SongPanel" unique_id=887629613]
 custom_minimum_size = Vector2(250, 0)
