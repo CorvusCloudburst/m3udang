@@ -48,13 +48,13 @@ func play_song_at_path(relativePath: String) -> void:
 # ---------------------------------------
 # Sets the application state for the current song
 func play_current_song() -> void:
-	
-	# Select the current song in the active playlist
-	allPlaylists.deselect_all()
+	# Select and scroll to the playing song in the right side panel
 	activePlaylist.select(activePlaylistIndex)
-	
-	select_containing_playlists()
 	activePlaylist.ensure_current_is_visible()
+	
+	# Highlight all playlists containing current song in left side panel
+	allPlaylists.deselect_all()
+	select_containing_playlists()
 	
 	# Play the song
 	play_song_at_path(activePlaylist.get_item_text(activePlaylistIndex))
@@ -112,7 +112,7 @@ func _on_new_playlist_button_pressed() -> void:
 
 # ---------------------------------------
 func create_new_playlist() -> FileAccess:
-	# Playlist directory should already be set before making a new one
+	# Playlist directory should already be set before making a new playlist
 	if !playlistDirectory:
 		printerr("No playlist directory selected yet.")
 		return
@@ -153,7 +153,6 @@ func traverseDirectory(dir: String, playlistFile: FileAccess) -> void:
 			playlistFile.store_line(dir + "/" + file)
 	
 	var directories = DirAccess.get_directories_at(dir)
-	print(str(directories))
 	for subdirectory in directories:
 		traverseDirectory(dir + "/" + subdirectory, playlistFile)
 
@@ -178,7 +177,7 @@ func update_playlist_directory(dir: String) -> void:
 	select_containing_playlists()
 
 # ---------------------------------------
-# Handles a playlist being selected or unselected
+# Handles a playlist being selected or unselected (adding/removing playing song from the playlist)
 func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
 	# If there's no song playing, do nothing
 	if !$NowPlaying.playing:
@@ -194,12 +193,10 @@ func _on_playlist_list_multi_selected(index: int, selected: bool) -> void:
 	
 	if selected:
 		# Add the song to the end of the playlist
-		print_verbose("SELECTED " + fileName)
 		file.seek_end()
 		file.store_line(songFile)
 	else:
 		# Find the song in the playlist and remove it
-		print_verbose("deselected " + fileName)
 		var file_song_removed = file.get_as_text().replace(songFile, "").replace("\n\n", "\n")
 		
 		# Rewrite the playlist file without the removed song
@@ -214,6 +211,50 @@ func select_containing_playlists() -> void:
 		var playlistFile = FileAccess.open(playlistDirectory + playlistName, FileAccess.READ)
 		if playlistFile.get_as_text().contains(activePlaylist.get_item_text(activePlaylistIndex)):
 			allPlaylists.select(index, false)
+
+# ------------- Non-Active Playlist Panel --------------------------
+# Handles a playlist being clicked on (mostly relevant for capturing right clicking)
+func _on_playlist_directory_item_clicked(index: int, _at_position: Vector2, mouse_button_index: int) -> void:
+	# Limit logic to right-click
+	print(mouse_button_index)
+	if (mouse_button_index != 2): 
+		return
+	
+	var playlistContentsPanel = $Layout/PrimaryWindow/PlaylistContentsPanel
+	var playlistContents = $Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContents
+	var playlistNameLabel = $Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/PlaylistContentsName
+	
+	# Toggle the panel visibility
+	playlistContentsPanel.visible = true
+	playlistContents.clear()
+	
+	# If visible, populate panel with contents of the playlist
+	if playlistContentsPanel.visible: 
+		# Open the selected playlist
+		var playlistName = allPlaylists.get_item_text(index)
+		var playlistContentsList = get_playlist_tracks(playlistName)
+		
+		playlistNameLabel.text = playlistName
+		
+		# List the playlist contents as list items in the panel
+		for songFile in playlistContentsList:
+			playlistContents.add_item(songFile)
+			
+		$Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/TrackCount.text = str(playlistContentsList.size()) + " tracks"
+	
+# ---------------------------------------
+# Get all the tracks in an m3u file
+func get_playlist_tracks(playlistName: String) -> Array:
+	var playlistFile = FileAccess.open(playlistDirectory + playlistName, FileAccess.READ)
+	var playlistContents = []
+	while !playlistFile.eof_reached():
+		var currentLine = playlistFile.get_line()
+		# Ignore comments and anything that isn't an mp3
+		if !currentLine.begins_with("#") && currentLine.ends_with(".mp3"):
+			playlistContents.append(currentLine)
+	return playlistContents
+	
+	
 
 # -----------------------------------------------------------------
 # Active Playlist
@@ -255,7 +296,7 @@ func _on_playlist_file_selected(path: String) -> void:
 		pass
 
 # ---------------------------------------
-# Opens an m3u and stores each relative path in an array to serve as the active playlist
+# Opens the m3u and populates the active playlist with its content
   # ?? How big can the playlist get before this gets weird ??
 func open_playlist(path: String) -> void:
 	update_playlist_directory(path.get_base_dir() + "/")
@@ -264,7 +305,7 @@ func open_playlist(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.READ)
 	while !file.eof_reached():
 		var currentLine = file.get_line()
-		# Ignore comments and anything that isn't an m3u
+		# Ignore comments and anything that isn't an mp3
 		if !currentLine.begins_with("#") && currentLine.ends_with(".mp3"):
 			activePlaylist.add_item(currentLine)
 	$Layout/PrimaryWindow/SongPanel/PlaylistDetails/TotalTracks.text = str(activePlaylist.item_count) + ' tracks'
@@ -343,3 +384,11 @@ func _on_color_picker_color_changed(color: Color) -> void:
 	$Layout/Player/Controls/TrackInfo/LowerRow/TrackAlbum.add_theme_color_override("font_color", color)
 	
 	$Layout/Player/Controls/ColorButton.self_modulate = color
+
+
+func _on_close_playlist_pressed() -> void:
+	$Layout/PrimaryWindow/PlaylistContentsPanel.visible = false
+
+func _on_play_this_playlist_pressed() -> void:
+	var fullPlaylistPath = playlistDirectory + $Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/PlaylistContentsName.text
+	_on_playlist_file_selected(fullPlaylistPath)
