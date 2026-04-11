@@ -118,6 +118,56 @@ item_count = 1
 item_0/text = "(empty)"
 item_0/disabled = true
 
+[node name="PlaylistContentsPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=1610148478]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+vertical = true
+
+[node name="PlaylistContentsHeader" type="BoxContainer" parent="Layout/PrimaryWindow/PlaylistContentsPanel" unique_id=1098399677]
+layout_mode = 2
+
+[node name="PlayThisPlaylist" type="Button" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1505331145]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Play this playlist"
+icon = ExtResource("11_y6deb")
+flat = true
+expand_icon = true
+
+[node name="PlaylistContentsName" type="Label" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=456984813]
+layout_mode = 2
+text = "playlist.m3u "
+
+[node name="Divider" type="MarginContainer" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=659485861]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="DividerImage" type="TextureRect" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/Divider" unique_id=1886461857]
+layout_mode = 2
+texture = ExtResource("13_2wyq8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TrackCount" type="Label" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1044665180]
+layout_mode = 2
+text = "0 tracks"
+
+[node name="ClosePlaylist" type="Button" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1369093263]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "Close this panel"
+icon = ExtResource("10_pm3ni")
+flat = true
+expand_icon = true
+
+[node name="PlaylistContents" type="ItemList" parent="Layout/PrimaryWindow/PlaylistContentsPanel" unique_id=487943735]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="VisualizerPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=1249556217]
 clip_contents = true
 layout_mode = 2
@@ -374,7 +424,10 @@ color = Color(1, 1, 1, 0)
 [connection signal="finished" from="NowPlaying" to="." method="_on_now_playing_finished"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/NewPlaylistButton" to="." method="_on_new_playlist_button_pressed"]
 [connection signal="pressed" from="Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName/GeneratePlaylistButton" to="." method="_on_generate_playlist_button_pressed"]
+[connection signal="item_clicked" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_directory_item_clicked"]
 [connection signal="multi_selected" from="Layout/PrimaryWindow/PlaylistPanel/PlaylistDirectory" to="." method="_on_playlist_list_multi_selected"]
+[connection signal="pressed" from="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/PlayThisPlaylist" to="." method="_on_play_this_playlist_pressed"]
+[connection signal="pressed" from="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader/ClosePlaylist" to="." method="_on_close_playlist_pressed"]
 [connection signal="resized" from="Layout/PrimaryWindow/VisualizerPanel" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_resized"]
 [connection signal="item_selected" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/VisualizerSelect" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_visualizer_select_item_selected"]
 [connection signal="value_changed" from="Layout/PrimaryWindow/VisualizerPanel/VisualizerControls/ShiftSlider" to="Layout/PrimaryWindow/VisualizerPanel" method="_on_shift_slider_value_changed"]
