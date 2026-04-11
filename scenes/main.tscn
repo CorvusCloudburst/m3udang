@@ -119,12 +119,22 @@ item_0/text = "(empty)"
 item_0/disabled = true
 
 [node name="PlaylistContentsPanel" type="BoxContainer" parent="Layout/PrimaryWindow" unique_id=1610148478]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 vertical = true
 
 [node name="PlaylistContentsHeader" type="BoxContainer" parent="Layout/PrimaryWindow/PlaylistContentsPanel" unique_id=1098399677]
 layout_mode = 2
+
+[node name="PlayThisPlaylist" type="Button" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1505331145]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Play this playlist"
+icon = ExtResource("11_y6deb")
+flat = true
+expand_icon = true
 
 [node name="PlaylistContentsName" type="Label" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=456984813]
 layout_mode = 2
@@ -144,18 +154,11 @@ stretch_mode = 5
 layout_mode = 2
 text = "0 tracks"
 
-[node name="PlayThisPlaylist" type="Button" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1505331145]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-icon = ExtResource("11_y6deb")
-flat = true
-expand_icon = true
-
 [node name="ClosePlaylist" type="Button" parent="Layout/PrimaryWindow/PlaylistContentsPanel/PlaylistContentsHeader" unique_id=1369093263]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
+tooltip_text = "Close this panel"
 icon = ExtResource("10_pm3ni")
 flat = true
 expand_icon = true

@@ -138,7 +138,7 @@ func _on_generate_playlist_button_pressed() -> void:
 func _on_new_playlist_file_dialog_dir_selected(dir: String) -> void:
 	var playlistFile = create_new_playlist()
 	if !playlistDirectory:
-		print("Whoops! No playlist directory selected.")
+		printerr("Whoops! No playlist directory selected.")
 		return
 	$Layout/PrimaryWindow/PlaylistPanel/NewPlaylistName.text = ""
 	# Recursively traverse the directory to build the playlist
@@ -216,7 +216,6 @@ func select_containing_playlists() -> void:
 # Handles a playlist being clicked on (mostly relevant for capturing right clicking)
 func _on_playlist_directory_item_clicked(index: int, _at_position: Vector2, mouse_button_index: int) -> void:
 	# Limit logic to right-click
-	print(mouse_button_index)
 	if (mouse_button_index != 2): 
 		return
 	
