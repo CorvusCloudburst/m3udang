@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b17d0gvxdp54p"]
+
+[ext_resource type="Script" uid="uid://dvcn77fsvd5lw" path="res://app/main.gd" id="1_s58fy"]
+[ext_resource type="PackedScene" uid="uid://cpaf13bvrcfyl" path="res://app/playlist_management/playlist_management_panel.tscn" id="1_yblnd"]
+
+[node name="Main" type="Node" unique_id=1622219]
+script = ExtResource("1_s58fy")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1292038147]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="LayoutGrid" type="GridContainer" parent="." unique_id=564699506]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="PlaylistManagementGrid" type="GridContainer" parent="LayoutGrid" unique_id=1539483554]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="PlaylistManagementPanel" parent="LayoutGrid/PlaylistManagementGrid" unique_id=932147196 instance=ExtResource("1_yblnd")]
+layout_mode = 2

@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://cpaf13bvrcfyl"]
+
+[ext_resource type="Script" uid="uid://dusp06p2qrb1f" path="res://app/playlist_management/playlist_management_panel.gd" id="1_jk7cu"]
+[ext_resource type="Texture2D" uid="uid://mfgdhrvuj2fg" path="res://icons/music-directory.png" id="1_x3wvf"]
+[ext_resource type="PackedScene" uid="uid://bvdjnij7ad6tb" path="res://app/playlist_management/playlist_list_item.tscn" id="3_qdchs"]
+[ext_resource type="Texture2D" uid="uid://dkxbytr8sf1g7" path="res://icons/plus.png" id="3_u16lj"]
+
+[node name="PlaylistManagementPanel" type="Panel" unique_id=932147196]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_jk7cu")
+
+[node name="PlaylistBrowser" type="VBoxContainer" parent="." unique_id=491449024]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderOuterMargins" type="MarginContainer" parent="PlaylistBrowser" unique_id=2113893162]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="PlaylistPanelHeader" type="HBoxContainer" parent="PlaylistBrowser/HeaderOuterMargins" unique_id=2084203299]
+layout_mode = 2
+
+[node name="ChangeDirectoryButton" type="Button" parent="PlaylistBrowser/HeaderOuterMargins/PlaylistPanelHeader" unique_id=1574320775]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "open playlist directory"
+icon = ExtResource("1_x3wvf")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PlaylistDirectoryLabel" type="Label" parent="PlaylistBrowser/HeaderOuterMargins/PlaylistPanelHeader" unique_id=1876642403]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "set a playlist directory to see your playlists"
+mouse_filter = 0
+text = "(no directory set)"
+vertical_alignment = 1
+
+[node name="NewPlaylistButton" type="Button" parent="PlaylistBrowser/HeaderOuterMargins/PlaylistPanelHeader" unique_id=1868562789]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "new playlist"
+icon = ExtResource("3_u16lj")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PlaylistBrowserPanel" type="Panel" parent="PlaylistBrowser" unique_id=1155824761]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PlaylistBrowser/PlaylistBrowserPanel" unique_id=1785078161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="OuterMargins" type="MarginContainer" parent="PlaylistBrowser/PlaylistBrowserPanel/ScrollContainer" unique_id=1607356994]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PlaylistList" type="VBoxContainer" parent="PlaylistBrowser/PlaylistBrowserPanel/ScrollContainer/OuterMargins" unique_id=1714330886]
+layout_mode = 2
+
+[node name="PlaylistListItem" parent="PlaylistBrowser/PlaylistBrowserPanel/ScrollContainer/OuterMargins/PlaylistList" unique_id=397228598 instance=ExtResource("3_qdchs")]
+layout_mode = 2
+
+[node name="PlaylistDirectoryDialog" type="FileDialog" parent="." unique_id=605731337]
+title = "Open a Directory"
+ok_button_text = "Select Folder"
+file_mode = 2
+display_mode = 1
+access = 2
+
+[node name="NewPlaylistDialog" type="FileDialog" parent="." unique_id=1552560175]
+title = "Create a new playlist file"
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.m3u")
+use_native_dialog = true
+
+[connection signal="pressed" from="PlaylistBrowser/HeaderOuterMargins/PlaylistPanelHeader/ChangeDirectoryButton" to="." method="_on_change_directory_button_pressed"]
+[connection signal="pressed" from="PlaylistBrowser/HeaderOuterMargins/PlaylistPanelHeader/NewPlaylistButton" to="." method="_on_new_playlist_button_pressed"]
+[connection signal="dir_selected" from="PlaylistDirectoryDialog" to="." method="_on_playlist_directory_dialog_dir_selected"]
+[connection signal="file_selected" from="NewPlaylistDialog" to="." method="_on_new_playlist_dialog_file_selected"]

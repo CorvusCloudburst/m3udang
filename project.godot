@@ -24,10 +24,6 @@ config/icon="uid://cv8sl6g2aix0r"
 
 buses/default_bus_layout="uid://78jupxapj4tp"
 
-[autoload]
-
-Globals="*uid://c14gfjkvo2ef0"
-
 [display]
 
 window/stretch/aspect="expand"
