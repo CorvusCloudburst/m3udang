@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://d2aat2sfr1y2h"]
+
+[ext_resource type="Script" uid="uid://dauexyc0af6tp" path="res://app/playlist_management/playlist_details/playlist_details_panel.gd" id="1_gnfcv"]
+[ext_resource type="Texture2D" uid="uid://ba2tigywb3mm6" path="res://icons/x.png" id="2_gj7ew"]
+[ext_resource type="Texture2D" uid="uid://d3d2rcf5bxbf5" path="res://icons/play.png" id="2_rrb1t"]
+[ext_resource type="PackedScene" uid="uid://d34si2h4yja4h" path="res://app/songs/draggable_track_list_panel.tscn" id="4_0sevv"]
+
+[node name="PlaylistDetailsPanel" type="Panel" unique_id=1550198251]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gnfcv")
+
+[node name="PlaylistDetailsLayout" type="VBoxContainer" parent="." unique_id=436582384]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderMargins" type="MarginContainer" parent="PlaylistDetailsLayout" unique_id=1873612044]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="PlaylistDetailsPanelHeader" type="HBoxContainer" parent="PlaylistDetailsLayout/HeaderMargins" unique_id=1304812202]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayPlaylistButton" type="Button" parent="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader" unique_id=332462633]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = ExtResource("2_rrb1t")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PlaylistNameLabel" type="Label" parent="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader" unique_id=150934123]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "playlist name"
+
+[node name="ClosePlaylistDetailsButton" type="Button" parent="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader" unique_id=2000293572]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = ExtResource("2_gj7ew")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="DraggableTrackListPanel" parent="PlaylistDetailsLayout" unique_id=391939788 instance=ExtResource("4_0sevv")]
+layout_mode = 2
+
+[connection signal="pressed" from="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/PlayPlaylistButton" to="." method="_on_play_playlist_button_pressed"]
+[connection signal="pressed" from="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/ClosePlaylistDetailsButton" to="." method="_on_close_playlist_details_button_pressed"]

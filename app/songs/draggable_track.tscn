@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dc70dy126xedy"]
+
+[ext_resource type="Script" uid="uid://sq0sfn1ajn0w" path="res://app/songs/draggable_track.gd" id="1_kkawb"]
+[ext_resource type="Texture2D" uid="uid://dhb6ribsgbdmb" path="res://icons/copy.png" id="2_270dj"]
+[ext_resource type="Texture2D" uid="uid://ba2tigywb3mm6" path="res://icons/x.png" id="3_r1n4r"]
+
+[node name="DraggableTrack" type="Panel" unique_id=1153770331]
+custom_minimum_size = Vector2(250, 30)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kkawb")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=270544364]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="TrackLayout" type="HBoxContainer" parent="MarginContainer" unique_id=827485640]
+layout_mode = 2
+
+[node name="TrackLabel" type="Label" parent="MarginContainer/TrackLayout" unique_id=1523172524]
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "track"
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+
+[node name="DuplicateButton" type="Button" parent="MarginContainer/TrackLayout" unique_id=1722796180]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("2_270dj")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="RemoveButton" type="Button" parent="MarginContainer/TrackLayout" unique_id=880524204]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("3_r1n4r")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="MarginContainer/TrackLayout/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/TrackLayout/RemoveButton" to="." method="_on_remove_button_pressed"]

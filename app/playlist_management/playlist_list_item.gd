@@ -23,9 +23,4 @@ func _ready() -> void:
 # ------------- Open playlist details -------------
 func _on_open_detail_button_pressed() -> void:
 	# Announce to ancestors that the details should open
-	open_playlist_detail.emit(filename)
-
-# -----------------------------------------------------------------
-# External communication
-# -----------------------------------------------------------------
-signal open_playlist_detail(playlist_filename: String)
+	SignalBus.open_playlist_detail.emit(filename)

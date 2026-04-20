@@ -89,4 +89,3 @@ func update_playlist_browser() -> void:
 		var playlist_list_item: PlaylistListItem = LIST_ITEM_SCENE.instantiate()
 		playlist_list_item.filename = playlist_filename
 		playlist_list.add_child(playlist_list_item)
-	
