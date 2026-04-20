@@ -17,14 +17,22 @@ func _ready() -> void:
 	track_label.text = filename.rsplit(".", false, 1)[0]
 	
 # -----------------------------------------------------------------
-# Buttons
+# External API
 # -----------------------------------------------------------------
 signal track_duplicated(duplicatedTrack: String, index: int)
+signal track_deleted(deletedTrack: String, index: int)
+signal track_dropped(dropped_item: DraggableTrack, reference_index: int)
+	
+# -----------------------------------------------------------------
+# Buttons
+# -----------------------------------------------------------------
 
 func _on_duplicate_button_pressed() -> void:
 	track_duplicated.emit(track_file_path, get_index())
 	
 func _on_remove_button_pressed() -> void:
+	get_parent().remove_child(self)
+	track_deleted.emit(track_file_path, get_index())
 	queue_free()
 
 # -----------------------------------------------------------------
@@ -48,8 +56,6 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	return data is DraggableTrack
 
 # ------------- Data announced when a track is dropped here -------------
-signal track_dropped(dropped_item: DraggableTrack, reference_index: int)
-
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	# Emits a signal so the parent can handle the list order
 	track_dropped.emit(data, get_index())

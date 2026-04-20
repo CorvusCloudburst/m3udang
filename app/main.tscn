@@ -4,10 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://cpaf13bvrcfyl" path="res://app/playlist_management/playlist_browser_panel.tscn" id="1_yblnd"]
 [ext_resource type="PackedScene" uid="uid://d2aat2sfr1y2h" path="res://app/playlist_management/playlist_details/playlist_details_panel.tscn" id="3_ysqge"]
 
-[sub_resource type="GDScript" id="GDScript_ysqge"]
-script/source = "extends GridContainer
-"
-
 [node name="Main" type="Node" unique_id=1622219]
 script = ExtResource("1_s58fy")
 
@@ -36,7 +32,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
-script = SubResource("GDScript_ysqge")
 
 [node name="PlaylistBrowserPanel" parent="LayoutGrid/PlaylistManagementGrid" unique_id=932147196 instance=ExtResource("1_yblnd")]
 custom_minimum_size = Vector2(250, 0)
@@ -44,4 +39,7 @@ layout_mode = 2
 
 [node name="PlaylistDetailsPanel" parent="LayoutGrid/PlaylistManagementGrid" unique_id=1550198251 instance=ExtResource("3_ysqge")]
 visible = false
+layout_mode = 2
+
+[node name="NowPlayingGrid" type="GridContainer" parent="LayoutGrid" unique_id=788481256]
 layout_mode = 2
