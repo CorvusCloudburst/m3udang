@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dvcn77fsvd5lw" path="res://app/main.gd" id="1_s58fy"]
 [ext_resource type="PackedScene" uid="uid://cpaf13bvrcfyl" path="res://app/playlist_management/playlist_browser_panel.tscn" id="1_yblnd"]
 [ext_resource type="PackedScene" uid="uid://d2aat2sfr1y2h" path="res://app/playlist_management/playlist_details/playlist_details_panel.tscn" id="3_ysqge"]
+[ext_resource type="PackedScene" uid="uid://c81kphgesuj1a" path="res://app/now_playing/player/player.tscn" id="4_8bux2"]
 
 [node name="Main" type="Node" unique_id=1622219]
 script = ExtResource("1_s58fy")
@@ -17,7 +18,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
 
-[node name="LayoutGrid" type="GridContainer" parent="." unique_id=564699506]
+[node name="LayoutContainer" type="HBoxContainer" parent="." unique_id=2117094871]
+clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -25,21 +27,32 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 2
 
-[node name="PlaylistManagementGrid" type="GridContainer" parent="LayoutGrid" unique_id=1539483554]
+[node name="PlaylistManagementContainer" type="HBoxContainer" parent="LayoutContainer" unique_id=996215196]
+clip_contents = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 size_flags_vertical = 3
-columns = 2
 
-[node name="PlaylistBrowserPanel" parent="LayoutGrid/PlaylistManagementGrid" unique_id=932147196 instance=ExtResource("1_yblnd")]
+[node name="PlaylistBrowserPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=932147196 instance=ExtResource("1_yblnd")]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="PlaylistDetailsPanel" parent="LayoutGrid/PlaylistManagementGrid" unique_id=1550198251 instance=ExtResource("3_ysqge")]
+[node name="PlaylistDetailsPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=1550198251 instance=ExtResource("3_ysqge")]
 visible = false
 layout_mode = 2
 
-[node name="NowPlayingGrid" type="GridContainer" parent="LayoutGrid" unique_id=788481256]
+[node name="NowPlayingContainer" type="VBoxContainer" parent="LayoutContainer" unique_id=2053573082]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VisualizerPanel" type="Panel" parent="LayoutContainer/NowPlayingContainer" unique_id=1083943438]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.95
+
+[node name="Player" parent="LayoutContainer/NowPlayingContainer" unique_id=1894687949 instance=ExtResource("4_8bux2")]
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
