@@ -25,3 +25,5 @@ layout_mode = 2
 [node name="VisualizerSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=395189260]
 layout_mode = 2
 flat = true
+
+[connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect" to="." method="_on_visualizer_select_item_selected"]

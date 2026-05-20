@@ -7,20 +7,12 @@ extends Panel
 # Static Constants
 enum Visualizers {
 	BARS,
-	BARS_FLAT, 
-	BARS_RAINBOW, 
-	BARS_PRISMATIC, 
 	AURORA, 
-	AURORA_PRISMATIC 
 }
 
-static var VisualizerLabels = {
+static var VisualizerStyles = {
 	Visualizers.BARS: "Bars",
-	Visualizers.BARS_FLAT: "Bars (Flat)",
-	Visualizers.BARS_RAINBOW: "Bars (Rainbow)",
-	Visualizers.BARS_PRISMATIC: "Bars (Prismatic)",
 	Visualizers.AURORA: "Aurora",
-	Visualizers.AURORA_PRISMATIC: "Aurora (Prismatic)",
 }
 
 # Display elements
@@ -36,18 +28,24 @@ func _ready() -> void:
 	
 func _initialize_visualizer_select() -> void:
 	visualizer_select.clear()
-	for index in VisualizerLabels.size():
-		visualizer_select.add_item(VisualizerLabels[index], index)
+	for index in VisualizerStyles.size():
+		visualizer_select.add_item(VisualizerStyles[index], index)
 	visualizer_select.select(Visualizers.BARS)
 
 func _initialize_visualizer() -> void:
+	_update_visualizer_style(Visualizers.BARS)
+
+func _update_visualizer_style(style: Visualizers) -> void:
 	if visualizer:
 		visualizer.queue_free()
-	
-	# TODO: Select this by menu
-	visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
+		
+	match style:
+		Visualizers.BARS: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
+		Visualizers.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
+		_: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 	
 	visualizer_panel_layout.add_child(visualizer)
+	
 
 
 # -----------------------------------------------------------------
@@ -55,9 +53,16 @@ func _initialize_visualizer() -> void:
 # -----------------------------------------------------------------
 
 
-	
+# TODO NOTES FOR CORVUS:
+#   - Add visualizer controls for every value (color, hue shift, color mode)
+#   - Implement Aurora similarly
+#   - Add a fucking volume slider
 	
 
 # -----------------------------------------------------------------
 # Controls
 # -----------------------------------------------------------------
+
+# Visualizer Style
+func _on_visualizer_select_item_selected(index: int) -> void:
+	_update_visualizer_style(index)

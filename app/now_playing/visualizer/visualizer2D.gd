@@ -10,10 +10,19 @@ extends TextureRect
 # Common properties
 # -----------------------------------------------------------------
 
+enum ColorMode {
+	FLAT,
+	STATIC,
+	MONO,
+	RAINBOW,
+	PRISMATIC
+}
+
 @export var gradient: Gradient
 @export var hue_shift: float = 0.0
 @export var playing: bool = false
 @export var color: Color = Color.MEDIUM_SLATE_BLUE
+@export var colorMode: ColorMode = ColorMode.MONO
 
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 var elements: Array[VisualizerElement]
@@ -57,6 +66,12 @@ func update_playing_state(now_playing: bool) -> void:
 # -----------------------------------------------------------------
 # Color management
 # -----------------------------------------------------------------
+
+func get_color_for_index(index: int) -> Color:
+	match colorMode:
+		ColorMode.MONO, ColorMode.PRISMATIC: return responsive_color(index)
+		ColorMode.RAINBOW, ColorMode.STATIC: return static_color(index)
+	return color
 
 func static_color(index: int) -> Color:
 	var calucated_color = gradient.sample(float(index) / float(element_count))

@@ -7,7 +7,7 @@ func _init() -> void:
 	
 func _draw() -> void:
 	for index: int in element_count:
-		var bar_color: Color = static_color(index)
+		var bar_color: Color = responsive_color(index)
 		var position_x = index * portioned_width
 		var position_y = size.y - elements[index].heightLerped
 		var bar_width = portioned_width - 1
@@ -19,7 +19,6 @@ func _draw() -> void:
 			bar_width,
 			bar_height
 		)
-		#print("\n","-------------", position_x, "\n", position_y, "\n", bar_width, "\n", bar_height)
 		draw_rect(rectangle, bar_color)
 
 
