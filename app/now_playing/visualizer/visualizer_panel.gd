@@ -57,6 +57,8 @@ func _update_visualizer_style(style: Visualizers) -> void:
 #   - Add visualizer controls for every value (color, hue shift, color mode)
 #   - Implement Aurora similarly
 #   - Add a fucking volume slider
+#   - Make actual icons for the repeat mode button
+#   - Add tooltips
 	
 
 # -----------------------------------------------------------------
