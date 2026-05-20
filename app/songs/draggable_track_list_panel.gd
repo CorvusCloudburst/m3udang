@@ -66,8 +66,7 @@ func _on_draggable_track_dropped(dropped_track: DraggableTrack, index: int) -> v
 		track_list.move_child(dropped_track, index)
 	# If dragging from elsewhere, add a new copy so the old one remains unaffected
 	else:
-		var new_track = dropped_track.duplicate()
-		_insert_track_into_list(new_track, index)
+		_insert_track_into_list(dropped_track.track_file_path, index)
 	tracklist_modified.emit()
 	
 # Insert the duplicated track beside its origin

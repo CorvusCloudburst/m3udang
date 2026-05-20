@@ -1,4 +1,4 @@
 class_name Globals
 extends Node
 
-static var playlist_directory = ''
+static var playlist_directory: String = ''

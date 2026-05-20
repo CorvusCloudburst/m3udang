@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dvcn77fsvd5lw" path="res://app/main.gd" id="1_s58fy"]
 [ext_resource type="PackedScene" uid="uid://cpaf13bvrcfyl" path="res://app/playlist_management/playlist_browser_panel.tscn" id="1_yblnd"]
 [ext_resource type="PackedScene" uid="uid://d2aat2sfr1y2h" path="res://app/playlist_management/playlist_details/playlist_details_panel.tscn" id="3_ysqge"]
-[ext_resource type="PackedScene" uid="uid://c81kphgesuj1a" path="res://app/now_playing/player/player.tscn" id="4_8bux2"]
+[ext_resource type="PackedScene" uid="uid://dvasne3rkn1ah" path="res://app/now_playing/now_playing_panel.tscn" id="4_8bux2"]
 
 [node name="Main" type="Node" unique_id=1622219]
 script = ExtResource("1_s58fy")
@@ -35,24 +35,12 @@ size_flags_horizontal = 0
 size_flags_vertical = 3
 
 [node name="PlaylistBrowserPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=932147196 instance=ExtResource("1_yblnd")]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
 [node name="PlaylistDetailsPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=1550198251 instance=ExtResource("3_ysqge")]
 visible = false
 layout_mode = 2
 
-[node name="NowPlayingContainer" type="VBoxContainer" parent="LayoutContainer" unique_id=2053573082]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VisualizerPanel" type="Panel" parent="LayoutContainer/NowPlayingContainer" unique_id=1083943438]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 3.95
-
-[node name="Player" parent="LayoutContainer/NowPlayingContainer" unique_id=1894687949 instance=ExtResource("4_8bux2")]
-custom_minimum_size = Vector2(0, 65)
+[node name="NowPlayingPanel" parent="LayoutContainer" unique_id=1787928880 instance=ExtResource("4_8bux2")]
 layout_mode = 2

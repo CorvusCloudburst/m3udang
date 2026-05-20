@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d34si2h4yja4h" path="res://app/songs/draggable_track_list_panel.tscn" id="4_0sevv"]
 
 [node name="PlaylistDetailsPanel" type="Panel" unique_id=1550198251]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(400, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

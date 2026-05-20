@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cb4g38inffqku"]
+
+[ext_resource type="Script" uid="uid://4vimi77c11a8" path="res://app/now_playing/visualizer/visualizer_panel.gd" id="1_jx4vm"]
+
+[node name="VisualizerPanel" type="Panel" unique_id=1378494163]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jx4vm")
+
+[node name="VisualizerPanelLayout" type="VBoxContainer" parent="." unique_id=136334476]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VisualizerPanelControls" type="HBoxContainer" parent="VisualizerPanelLayout" unique_id=330043849]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="VisualizerSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=395189260]
+layout_mode = 2
+flat = true

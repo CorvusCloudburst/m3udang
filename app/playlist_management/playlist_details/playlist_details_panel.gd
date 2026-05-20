@@ -30,9 +30,8 @@ func _on_draggable_track_list_tracklist_modified() -> void:
 
 # ------------- Play playlist in the player -------------
 func _on_play_playlist_button_pressed() -> void:
-	print("TODO: Play the playlist")
-	#play_playlist.emit(filename) # Announces a playlist should play
-
+	SignalBus.play_playlist.emit(filename)
+	SignalBus.playing_toggled.emit(true)
 
 # ------------- Helpers -------------
 # Opens the panel with fresh data

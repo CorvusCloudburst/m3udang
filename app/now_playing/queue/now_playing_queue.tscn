@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://k0pv22haxjig"]
+
+[ext_resource type="Script" uid="uid://cfaklkwe8avkj" path="res://app/now_playing/queue/now_playing_queue.gd" id="1_734bt"]
+[ext_resource type="Texture2D" uid="uid://cu6ttp115bc7m" path="res://icons/diamond.png" id="1_duilj"]
+[ext_resource type="PackedScene" uid="uid://d34si2h4yja4h" path="res://app/songs/draggable_track_list_panel.tscn" id="2_734bt"]
+[ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="2_cu2be"]
+
+[node name="NowPlayingQueue" type="Control" unique_id=2134626693]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_734bt")
+
+[node name="QueuePanel" type="Panel" parent="." unique_id=807046451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QueueLayout" type="VBoxContainer" parent="QueuePanel" unique_id=793139594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QueueHeader" type="HBoxContainer" parent="QueuePanel/QueueLayout" unique_id=851519952]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CollapseQueueButton" type="Button" parent="QueuePanel/QueueLayout/QueueHeader" unique_id=51961762]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+icon = ExtResource("2_cu2be")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="QueueDetailsLayout" type="HBoxContainer" parent="QueuePanel/QueueLayout/QueueHeader" unique_id=915074230]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="NowPlayingLabel" type="Label" parent="QueuePanel/QueueLayout/QueueHeader/QueueDetailsLayout" unique_id=1555295700]
+layout_mode = 2
+text = "Now Playing"
+horizontal_alignment = 1
+
+[node name="Divider" type="TextureRect" parent="QueuePanel/QueueLayout/QueueHeader/QueueDetailsLayout" unique_id=307801195]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture = ExtResource("1_duilj")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TrackCountLabel" type="Label" parent="QueuePanel/QueueLayout/QueueHeader/QueueDetailsLayout" unique_id=2140688379]
+layout_mode = 2
+text = "53 tracks"
+
+[node name="TrackQueue" parent="QueuePanel/QueueLayout" unique_id=391939788 instance=ExtResource("2_734bt")]
+layout_mode = 2
+
+[connection signal="pressed" from="QueuePanel/QueueLayout/QueueHeader/CollapseQueueButton" to="." method="_on_collapse_queue_button_pressed"]
