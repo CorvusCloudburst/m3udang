@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cb4g38inffqku"]
 
 [ext_resource type="Script" uid="uid://4vimi77c11a8" path="res://app/now_playing/visualizer/visualizer_panel.gd" id="1_jx4vm"]
-[ext_resource type="Texture2D" uid="uid://dln4etmr6wtim" path="res://icons/black.png" id="2_1hvds"]
+[ext_resource type="Texture2D" uid="uid://dln4etmr6wtim" path="res://packaging/black.png" id="2_1hvds"]
 
 [node name="VisualizerPanel" type="Panel" unique_id=1378494163]
 anchors_preset = 15
