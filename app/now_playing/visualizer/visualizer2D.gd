@@ -14,7 +14,8 @@ extends TextureRect
 @export var hue_shift: float = 0.0
 @export var playing: bool = false
 @export var color: Color = Color.MEDIUM_SLATE_BLUE
-@export var colorMode: VisualizerColors.ColorMode = VisualizerColors.ColorMode.MONO
+@export var colorMode: VisualizerConstants.ColorMode = VisualizerConstants.ColorMode.MONO
+@export var preferred_background: Texture = preload("res://packaging/black.png")
 
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 var elements: Array[VisualizerElement]
@@ -37,7 +38,7 @@ func _ready() -> void:
 	spectrum_analyzer = AudioServer.get_bus_effect_instance(1,0)
 	for i: int in element_count:
 		elements.append(VisualizerElement.new())
-	gradient = VisualizerColors.get_gradient_for_color_mode(colorMode, color, element_count, hue_shift)
+	gradient = VisualizerConstants.get_gradient_for_color_mode(colorMode, color, element_count, hue_shift)
 
 func _process(_delta: float) -> void:
 	portioned_width = size.x / float(element_count)
@@ -69,9 +70,15 @@ func update_playing_state(now_playing: bool) -> void:
 
 func get_color_for_index(index: int) -> Color:
 	match colorMode:
-		VisualizerColors.ColorMode.MONO, VisualizerColors.ColorMode.PRISMATIC: return responsive_color(index)
-		VisualizerColors.ColorMode.RAINBOW, VisualizerColors.ColorMode.STATIC: return static_color(index)
+		VisualizerConstants.ColorMode.MONO, VisualizerConstants.ColorMode.PRISMATIC: return responsive_color(index)
+		VisualizerConstants.ColorMode.RAINBOW, VisualizerConstants.ColorMode.STATIC: return static_color(index)
+		VisualizerConstants.ColorMode.FLAT: return flat_color()
 		_: return color
+
+func flat_color() -> Color:
+	var calculated_color = color
+	calculated_color.h = shifted_hue_value(calculated_color)
+	return calculated_color
 
 func static_color(index: int) -> Color:
 	var calucated_color = gradient.sample(float(index) / float(element_count))

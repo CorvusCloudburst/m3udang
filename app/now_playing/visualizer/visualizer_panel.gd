@@ -4,17 +4,6 @@ extends Panel
 # Setup
 # -----------------------------------------------------------------
 
-# Static Constants
-enum Visualizers {
-	BARS,
-	AURORA, 
-}
-
-static var VisualizerStyles = {
-	Visualizers.BARS: "Bars",
-	Visualizers.AURORA: "Aurora",
-}
-
 # Display elements
 @onready var visualizer_panel_layout: VBoxContainer = $VisualizerPanelLayout
 @onready var visualizer_background: TextureRect = $VisualizerPanelLayout/VisualizerBackground
@@ -34,21 +23,21 @@ func _ready() -> void:
 	
 func _initialize_visualizer_select() -> void:
 	visualizer_select.clear()
-	for index in VisualizerStyles.size():
-		visualizer_select.add_item(VisualizerStyles[index], index)
-	visualizer_select.select(Visualizers.BARS)
+	for index in VisualizerConstants.Styles.size():
+		visualizer_select.add_item(VisualizerConstants.StyleLabels[index], index)
+	visualizer_select.select(VisualizerConstants.Styles.BARS)
 	
 func _initialize_color_mode_select() -> void:
 	color_mode_select.clear()
-	for index in VisualizerColors.ColorModeLabels.size():
-		color_mode_select.add_item(VisualizerColors.ColorModeLabels[index], index)
-	color_mode_select.select(VisualizerColors.ColorMode.MONO)
+	for index in VisualizerConstants.ColorModeLabels.size():
+		color_mode_select.add_item(VisualizerConstants.ColorModeLabels[index], index)
+	color_mode_select.select(VisualizerConstants.ColorMode.MONO)
 	
 func _initialize_visualizer() -> void:
 	_initialize_visualizer_select()
 	_initialize_color_mode_select()
 	visualizer_color_button.color = Color.MEDIUM_SLATE_BLUE
-	element_count_spin_box.value = 64
+	element_count_spin_box.value = 128
 	_update_visualizer_style()
 	
 
@@ -65,11 +54,11 @@ func _update_visualizer_style() -> void:
 		visualizer.queue_free()
 		
 	match visualizer_select.selected:
-		Visualizers.BARS: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
-		Visualizers.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/aurora.tscn").instantiate()
+		VisualizerConstants.Styles.BARS: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
+		VisualizerConstants.Styles.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/aurora.tscn").instantiate()
 		_: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 	
-	visualizer.colorMode = VisualizerColors.ColorMode.values()[color_mode_select.selected]
+	visualizer.colorMode = VisualizerConstants.ColorMode.values()[color_mode_select.selected]
 	visualizer.color = visualizer_color_button.color
 	visualizer.hue_shift = hue_shift_slider.value
 	
@@ -79,12 +68,13 @@ func _update_visualizer_style() -> void:
 	visualizer.playing = was_playing
 	
 	visualizer_background.add_child(visualizer)
+	visualizer_background.texture = visualizer.preferred_background
 
 # -----------------------------------------------------------------
 # Controls
 # -----------------------------------------------------------------
 
-# Visualizer Style
+# Style
 func _on_visualizer_select_item_selected(_index: int) -> void:
 	_update_visualizer_style()
 
