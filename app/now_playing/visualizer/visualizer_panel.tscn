@@ -23,7 +23,14 @@ custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
 [node name="VisualizerSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=395189260]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+flat = true
+
+[node name="ColorModeSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=1259816310]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 flat = true
 
 [connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect" to="." method="_on_visualizer_select_item_selected"]
+[connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/ColorModeSelect" to="." method="_on_color_mode_select_item_selected"]

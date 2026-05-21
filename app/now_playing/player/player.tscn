@@ -108,6 +108,16 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="VolumeSlider" type="HSlider" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1284680]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.5
+ticks_position = 3
+
 [node name="TrackInfoLayout" type="VBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout" unique_id=720103066]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -154,4 +164,5 @@ bus = &"Player"
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepForwardButton" to="." method="_on_step_forward_button_pressed"]
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/RepeatButton" to="." method="_on_repeat_button_pressed"]
+[connection signal="value_changed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="finished" from="TrackPlayer" to="." method="_on_track_player_finished"]

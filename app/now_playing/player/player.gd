@@ -28,6 +28,7 @@ var track_length: float
 
 func _ready() -> void:
 	SignalBus.play_track.connect(play_track)
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Player"), 0.5)
 	
 func _process(_delta: float) -> void:
 	timeline_slider.value = track_player.get_playback_position()
@@ -137,3 +138,7 @@ func _toggle_repeat_button_icon() -> void:
 			repeat_button.icon = preload("res://icons/palette.png")
 		Repeat.ONE:
 			repeat_button.icon = preload("res://icons/music-directory.png")
+
+# ------------- Volume -------------
+func _on_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Player"), value)

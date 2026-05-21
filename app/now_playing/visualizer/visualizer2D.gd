@@ -10,19 +10,11 @@ extends TextureRect
 # Common properties
 # -----------------------------------------------------------------
 
-enum ColorMode {
-	FLAT,
-	STATIC,
-	MONO,
-	RAINBOW,
-	PRISMATIC
-}
-
 @export var gradient: Gradient
 @export var hue_shift: float = 0.0
 @export var playing: bool = false
 @export var color: Color = Color.MEDIUM_SLATE_BLUE
-@export var colorMode: ColorMode = ColorMode.MONO
+@export var colorMode: VisualizerColors.ColorMode = VisualizerColors.ColorMode.MONO
 
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 var elements: Array[VisualizerElement]
@@ -45,6 +37,7 @@ func _ready() -> void:
 	spectrum_analyzer = AudioServer.get_bus_effect_instance(1,0)
 	for i: int in element_count:
 		elements.append(VisualizerElement.new())
+	gradient = VisualizerColors.get_gradient_for_color_mode(colorMode, color, element_count, hue_shift)
 
 func _process(_delta: float) -> void:
 	portioned_width = size.x / float(element_count)
@@ -69,9 +62,9 @@ func update_playing_state(now_playing: bool) -> void:
 
 func get_color_for_index(index: int) -> Color:
 	match colorMode:
-		ColorMode.MONO, ColorMode.PRISMATIC: return responsive_color(index)
-		ColorMode.RAINBOW, ColorMode.STATIC: return static_color(index)
-	return color
+		VisualizerColors.ColorMode.MONO, VisualizerColors.ColorMode.PRISMATIC: return responsive_color(index)
+		VisualizerColors.ColorMode.RAINBOW, VisualizerColors.ColorMode.STATIC: return static_color(index)
+		_: return color
 
 func static_color(index: int) -> Color:
 	var calucated_color = gradient.sample(float(index) / float(element_count))
@@ -89,41 +82,3 @@ func shifted_hue_value(original_color: Color) -> float:
 		shifted_hue -= 1
 	return shifted_hue
 	
-# ------------- Convenience Gradients --------------------------
-func rainbow_gradient() -> Gradient:
-	var new_gradient := Gradient.new()
-	for index: int in element_count:
-		var index_shifted_color = Color.from_hsv((
-			# Gay math
-			element_count * hue_shift + index) / element_count, 
-			0.6, 
-			0.7, 
-			0.9
-		)
-		new_gradient.add_point(
-			# Normalize to 0.0 - 1.0 range ?
-			1.0/float(element_count + 1) + float(index)/float(element_count+ 1), 
-			index_shifted_color
-		)
-	# Remove preset points
-	new_gradient.remove_point(0)
-	new_gradient.remove_point(0)
-	return new_gradient
-
-func mono_gradient() -> Gradient:
-	var new_gradient = Gradient.new()
-	new_gradient.add_point(0, color.darkened(0.8))
-	new_gradient.add_point(1, color.lightened(0.2))
-	# Remove preset points
-	new_gradient.remove_point(0)
-	new_gradient.remove_point(0)
-	return new_gradient
-	
-func flat_gradient() -> Gradient:
-	var new_gradient = Gradient.new()
-	new_gradient.add_point(0, color)
-	new_gradient.add_point(1, color)
-	# Remove preset points
-	new_gradient.remove_point(0)
-	new_gradient.remove_point(0)
-	return new_gradient

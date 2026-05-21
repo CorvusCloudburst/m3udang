@@ -3,11 +3,10 @@ extends Visualizer2D
 func _init() -> void:
 	element_count = 64
 	lerp_weight = 0.1
-	gradient = mono_gradient()
 	
 func _draw() -> void:
 	for index: int in element_count:
-		var bar_color: Color = responsive_color(index)
+		var bar_color: Color = get_color_for_index(index)
 		var position_x = index * portioned_width
 		var position_y = size.y - elements[index].heightLerped
 		var bar_width = portioned_width - 1
