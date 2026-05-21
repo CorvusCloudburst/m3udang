@@ -51,6 +51,13 @@ func update_spectrum_data() -> void:
 	for i: int in element_count:
 		elements[i].update_values(spectrum_analyzer, i, element_count, lerp_weight, size.x, size.y * 13)
 
+func update_element_count(new_count: int) -> void:
+	elements.clear()
+	element_count = new_count
+	spectrum_analyzer = AudioServer.get_bus_effect_instance(1,0)
+	for i: int in element_count:
+		elements.append(VisualizerElement.new())
+
 func update_playing_state(now_playing: bool) -> void:
 	playing = now_playing
 

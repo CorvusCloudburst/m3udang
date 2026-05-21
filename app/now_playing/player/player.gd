@@ -126,18 +126,16 @@ func _on_step_forward_button_pressed() -> void:
 # ------------- Repeat -------------
 func _on_repeat_button_pressed() -> void:
 	repeat = (repeat as int + 1) % 3 as Repeat
-	print(repeat)
 	_toggle_repeat_button_icon()
 	
 func _toggle_repeat_button_icon() -> void:
-	# TODO: Add actual icons
 	match repeat:
 		Repeat.NONE:
-			repeat_button.icon = preload("res://icons/x.png")
+			repeat_button.icon = preload("res://icons/no-repeat.png")
 		Repeat.ALL:
-			repeat_button.icon = preload("res://icons/palette.png")
+			repeat_button.icon = preload("res://icons/repeat-all.png")
 		Repeat.ONE:
-			repeat_button.icon = preload("res://icons/music-directory.png")
+			repeat_button.icon = preload("res://icons/repeat-1.png")
 
 # ------------- Volume -------------
 func _on_volume_slider_value_changed(value: float) -> void:

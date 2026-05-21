@@ -19,18 +19,55 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VisualizerPanelControls" type="HBoxContainer" parent="VisualizerPanelLayout" unique_id=330043849]
+clip_contents = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
 
 [node name="VisualizerSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=395189260]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Style"
 flat = true
 
 [node name="ColorModeSelect" type="OptionButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=1259816310]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Color mode"
 flat = true
+
+[node name="VisualizerColorButton" type="ColorPickerButton" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=1551222737]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Color"
+flat = true
+
+[node name="HueShiftSlider" type="HSlider" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=947282566]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+tooltip_text = "Hue shift"
+max_value = 1.0
+step = 0.01
+
+[node name="ElementCountSpinBox" type="SpinBox" parent="VisualizerPanelLayout/VisualizerPanelControls" unique_id=133015610]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Element count"
+min_value = 1.0
+max_value = 512.0
+value = 1.0
+alignment = 1
+custom_arrow_step = 1.0
+custom_arrow_round = true
 
 [connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect" to="." method="_on_visualizer_select_item_selected"]
 [connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/ColorModeSelect" to="." method="_on_color_mode_select_item_selected"]
+[connection signal="color_changed" from="VisualizerPanelLayout/VisualizerPanelControls/VisualizerColorButton" to="." method="_on_visualizer_color_button_color_changed"]
+[connection signal="value_changed" from="VisualizerPanelLayout/VisualizerPanelControls/HueShiftSlider" to="." method="_on_hue_shift_slider_value_changed"]
+[connection signal="value_changed" from="VisualizerPanelLayout/VisualizerPanelControls/ElementCountSpinBox" to="." method="_on_element_count_spin_box_value_changed"]

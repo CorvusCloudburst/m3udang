@@ -1,7 +1,6 @@
 extends Visualizer2D
 
 func _init() -> void:
-	element_count = 64
 	lerp_weight = 0.1
 	
 func _draw() -> void:

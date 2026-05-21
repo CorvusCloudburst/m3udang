@@ -16,17 +16,20 @@ static var VisualizerStyles = {
 }
 
 # Display elements
+@onready var visualizer_panel_layout: VBoxContainer = $VisualizerPanelLayout
+
 @onready var visualizer_select: OptionButton = $VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect
 @onready var color_mode_select: OptionButton = $VisualizerPanelLayout/VisualizerPanelControls/ColorModeSelect
-@onready var visualizer_panel_layout: VBoxContainer = $VisualizerPanelLayout
+@onready var visualizer_color_button: ColorPickerButton = $VisualizerPanelLayout/VisualizerPanelControls/VisualizerColorButton
+@onready var hue_shift_slider: HSlider = $VisualizerPanelLayout/VisualizerPanelControls/HueShiftSlider
+@onready var element_count_spin_box: SpinBox = $VisualizerPanelLayout/VisualizerPanelControls/ElementCountSpinBox
+
 
 var visualizer: Visualizer2D
 
 # ------------- Initialization -------------
 func _ready() -> void:
-	_initialize_visualizer_select()
 	_initialize_visualizer()
-	_initialize_color_mode_select()
 	
 func _initialize_visualizer_select() -> void:
 	visualizer_select.clear()
@@ -41,7 +44,11 @@ func _initialize_color_mode_select() -> void:
 	color_mode_select.select(VisualizerColors.ColorMode.MONO)
 	
 func _initialize_visualizer() -> void:
-	_update_visualizer_style(Visualizers.BARS, VisualizerColors.ColorMode.MONO)
+	_initialize_visualizer_select()
+	_initialize_color_mode_select()
+	visualizer_color_button.color = Color.MEDIUM_SLATE_BLUE
+	element_count_spin_box.value = 64
+	_update_visualizer_style()
 	
 
 
@@ -51,25 +58,28 @@ func _initialize_visualizer() -> void:
 
 
 # TODO NOTES FOR CORVUS:
-#   - Add visualizer controls for every value (still left - color, hue shift, element count)
 #   - Implement Aurora similarly
-#   - Make actual icons for the repeat mode button
-#   - Add tooltips
 	
-func _update_visualizer_style(style: Visualizers, colorMode: VisualizerColors.ColorMode) -> void:
+func _update_visualizer_style() -> void:
 	var was_playing = false
 	
 	if visualizer:
 		was_playing = visualizer.playing
 		visualizer.queue_free()
 		
-	match style:
+	match visualizer_select.selected:
 		Visualizers.BARS: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 		# TODO: Implement AURORA style
 		Visualizers.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 		_: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 	
-	visualizer.colorMode = colorMode
+	visualizer.colorMode = VisualizerColors.ColorMode.values()[color_mode_select.selected]
+	visualizer.color = visualizer_color_button.color
+	visualizer.hue_shift = hue_shift_slider.value
+	
+	if (element_count_spin_box.value != visualizer.element_count):
+		visualizer.update_element_count(element_count_spin_box.value as int)
+	
 	visualizer.playing = was_playing
 	
 	visualizer_panel_layout.add_child(visualizer)
@@ -79,9 +89,21 @@ func _update_visualizer_style(style: Visualizers, colorMode: VisualizerColors.Co
 # -----------------------------------------------------------------
 
 # Visualizer Style
-func _on_visualizer_select_item_selected(index: int) -> void:
-	_update_visualizer_style(index, visualizer.colorMode)
+func _on_visualizer_select_item_selected(_index: int) -> void:
+	_update_visualizer_style()
 
 # Color Mode
-func _on_color_mode_select_item_selected(index: int) -> void:
-	_update_visualizer_style(visualizer_select.selected, index)
+func _on_color_mode_select_item_selected(_index: int) -> void:
+	_update_visualizer_style()
+
+# Color
+func _on_visualizer_color_button_color_changed(_color: Color) -> void:
+	_update_visualizer_style()
+
+# Hue Shift
+func _on_hue_shift_slider_value_changed(_value: float) -> void:
+	_update_visualizer_style()
+
+# Element Count
+func _on_element_count_spin_box_value_changed(_value: float) -> void:
+	_update_visualizer_style()

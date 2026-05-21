@@ -28,15 +28,18 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VisualizerPanel" parent="NowPlayingLayout/MainLayout" unique_id=1378494163 instance=ExtResource("2_eh0r2")]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NowPlayingQueue" parent="NowPlayingLayout/MainLayout" unique_id=2134626693 instance=ExtResource("1_1a73a")]
+clip_contents = true
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
 [node name="Player" parent="NowPlayingLayout" unique_id=1894687949 instance=ExtResource("2_071yi")]
+clip_contents = true
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 
