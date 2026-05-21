@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cqlv15pesqfri"]
 
-[ext_resource type="Texture2D" uid="uid://dln4etmr6wtim" path="res://icons/black.png" id="1_868rv"]
 [ext_resource type="Script" uid="uid://bkog83ace6v6o" path="res://app/now_playing/visualizer/visualizers/bars.gd" id="1_kkkaj"]
 
 [node name="Bars" type="TextureRect" unique_id=55667054]
@@ -12,5 +11,4 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("1_868rv")
 script = ExtResource("1_kkkaj")

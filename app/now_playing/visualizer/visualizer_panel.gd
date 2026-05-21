@@ -17,6 +17,7 @@ static var VisualizerStyles = {
 
 # Display elements
 @onready var visualizer_panel_layout: VBoxContainer = $VisualizerPanelLayout
+@onready var visualizer_background: TextureRect = $VisualizerPanelLayout/VisualizerBackground
 
 @onready var visualizer_select: OptionButton = $VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect
 @onready var color_mode_select: OptionButton = $VisualizerPanelLayout/VisualizerPanelControls/ColorModeSelect
@@ -55,10 +56,6 @@ func _initialize_visualizer() -> void:
 # -----------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------
-
-
-# TODO NOTES FOR CORVUS:
-#   - Implement Aurora similarly
 	
 func _update_visualizer_style() -> void:
 	var was_playing = false
@@ -69,8 +66,7 @@ func _update_visualizer_style() -> void:
 		
 	match visualizer_select.selected:
 		Visualizers.BARS: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
-		# TODO: Implement AURORA style
-		Visualizers.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
+		Visualizers.AURORA: visualizer = preload("res://app/now_playing/visualizer/visualizers/aurora.tscn").instantiate()
 		_: visualizer = preload("res://app/now_playing/visualizer/visualizers/bars.tscn").instantiate()
 	
 	visualizer.colorMode = VisualizerColors.ColorMode.values()[color_mode_select.selected]
@@ -82,7 +78,7 @@ func _update_visualizer_style() -> void:
 	
 	visualizer.playing = was_playing
 	
-	visualizer_panel_layout.add_child(visualizer)
+	visualizer_background.add_child(visualizer)
 
 # -----------------------------------------------------------------
 # Controls

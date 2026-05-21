@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cb4g38inffqku"]
 
 [ext_resource type="Script" uid="uid://4vimi77c11a8" path="res://app/now_playing/visualizer/visualizer_panel.gd" id="1_jx4vm"]
+[ext_resource type="Texture2D" uid="uid://dln4etmr6wtim" path="res://icons/black.png" id="2_1hvds"]
 
 [node name="VisualizerPanel" type="Panel" unique_id=1378494163]
 anchors_preset = 15
@@ -65,6 +66,13 @@ value = 1.0
 alignment = 1
 custom_arrow_step = 1.0
 custom_arrow_round = true
+
+[node name="VisualizerBackground" type="TextureRect" parent="VisualizerPanelLayout" unique_id=1383550255]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_1hvds")
+expand_mode = 1
 
 [connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/VisualizerSelect" to="." method="_on_visualizer_select_item_selected"]
 [connection signal="item_selected" from="VisualizerPanelLayout/VisualizerPanelControls/ColorModeSelect" to="." method="_on_color_mode_select_item_selected"]
