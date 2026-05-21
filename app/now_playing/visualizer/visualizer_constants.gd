@@ -1,4 +1,14 @@
-class_name VisualizerColors
+class_name VisualizerConstants
+
+enum Styles {
+	BARS,
+	AURORA, 
+}
+
+static var StyleLabels = {
+	Styles.BARS: "Bars",
+	Styles.AURORA: "Aurora",
+}
 
 enum ColorMode {
 	FLAT,
@@ -19,8 +29,8 @@ static var ColorModeLabels = {
 # ------------- Convenience Gradients --------------------------
 static func get_gradient_for_color_mode(colorMode: ColorMode, color: Color, element_count: int, hue_shift: float = 0.0) -> Gradient:
 	match colorMode:
-		VisualizerColors.ColorMode.FLAT: return flat_gradient(color)
-		VisualizerColors.ColorMode.STATIC, VisualizerColors.ColorMode.MONO: return mono_gradient(color)
+		ColorMode.FLAT: return flat_gradient(color)
+		ColorMode.STATIC, ColorMode.MONO: return mono_gradient(color)
 		_: return rainbow_gradient(element_count, hue_shift)
 	
 static func rainbow_gradient(element_count: int, hue_shift: float) -> Gradient:

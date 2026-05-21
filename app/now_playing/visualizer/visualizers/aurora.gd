@@ -1,9 +1,8 @@
 extends Visualizer2D
 
-# TODO: Opacity lerped by energy
-
 func _init() -> void:
 	lerp_weight = 0.05
+	preferred_background = preload("res://packaging/night-sky.png")
 
 func _draw():
 	for index: int in element_count:

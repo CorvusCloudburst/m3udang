@@ -20,7 +20,7 @@ script = ExtResource("1_onj6o")
 
 [node name="PlayerPanel" type="Panel" parent="." unique_id=328540722]
 clip_contents = true
-custom_minimum_size = Vector2(450, 85)
+custom_minimum_size = Vector2(450, 95)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -36,24 +36,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="PlayerPanelLayout" type="VBoxContainer" parent="PlayerPanel/OuterMargins" unique_id=1694968870]
+clip_contents = true
 layout_mode = 2
 
 [node name="TimelineMargins" type="MarginContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout" unique_id=1858835758]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+size_flags_vertical = 2
 
 [node name="TimelineLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins" unique_id=732627245]
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="TimelineSlider" type="HSlider" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout" unique_id=1032258958]
 layout_mode = 2
@@ -63,14 +61,14 @@ size_flags_vertical = 8
 [node name="PlayerControlsLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout" unique_id=1870728665]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 alignment = 1
 
 [node name="ControlsLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout" unique_id=159323216]
 layout_mode = 2
 
 [node name="ShuffleButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1959410084]
-custom_minimum_size = Vector2(65, 45)
+custom_minimum_size = Vector2(65, 35)
 layout_mode = 2
 tooltip_text = "Shuffle"
 icon = ExtResource("2_hs3ps")
@@ -128,6 +126,7 @@ ticks_position = 3
 [node name="TrackInfoLayout" type="VBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout" unique_id=720103066]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = -4
 
 [node name="TrackNameLabel" type="Label" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout" unique_id=1328529358]
 layout_mode = 2
