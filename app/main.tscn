@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b17d0gvxdp54p"]
+
+[ext_resource type="Script" uid="uid://dvcn77fsvd5lw" path="res://app/main.gd" id="1_s58fy"]
+[ext_resource type="PackedScene" uid="uid://cpaf13bvrcfyl" path="res://app/playlist_management/playlist_browser_panel.tscn" id="1_yblnd"]
+[ext_resource type="PackedScene" uid="uid://d2aat2sfr1y2h" path="res://app/playlist_management/playlist_details/playlist_details_panel.tscn" id="3_ysqge"]
+[ext_resource type="PackedScene" uid="uid://dvasne3rkn1ah" path="res://app/now_playing/now_playing_panel.tscn" id="4_8bux2"]
+
+[node name="Main" type="Node" unique_id=1622219]
+script = ExtResource("1_s58fy")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1292038147]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="LayoutContainer" type="HBoxContainer" parent="." unique_id=2117094871]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlaylistManagementContainer" type="HBoxContainer" parent="LayoutContainer" unique_id=996215196]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="PlaylistBrowserPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=932147196 instance=ExtResource("1_yblnd")]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="PlaylistDetailsPanel" parent="LayoutContainer/PlaylistManagementContainer" unique_id=1550198251 instance=ExtResource("3_ysqge")]
+visible = false
+layout_mode = 2
+
+[node name="NowPlayingPanel" parent="LayoutContainer" unique_id=1787928880 instance=ExtResource("4_8bux2")]
+clip_contents = true
+layout_mode = 2

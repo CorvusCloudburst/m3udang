@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bvdjnij7ad6tb"]
+
+[ext_resource type="Script" uid="uid://b6f5l3bihfylw" path="res://app/playlist_management/playlist_list_item.gd" id="1_t1mr0"]
+[ext_resource type="Texture2D" uid="uid://dh27xrr7pk0oe" path="res://icons/stepForward.png" id="2_v8fpe"]
+
+[node name="PlaylistListItem" type="Control" unique_id=397228598]
+custom_minimum_size = Vector2(250, 35)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t1mr0")
+
+[node name="Panel" type="Panel" parent="." unique_id=2074416236]
+custom_minimum_size = Vector2(250, 25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OuterMargins" type="MarginContainer" parent="Panel" unique_id=1613320102]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="PanelLayoutBox" type="HBoxContainer" parent="Panel/OuterMargins" unique_id=211079436]
+layout_mode = 2
+
+[node name="PlaylistNameLabel" type="Label" parent="Panel/OuterMargins/PanelLayoutBox" unique_id=1867759651]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "name"
+vertical_alignment = 1
+
+[node name="OpenDetailButton" type="Button" parent="Panel/OuterMargins/PanelLayoutBox" unique_id=1736864980]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "view playlist"
+icon = ExtResource("2_v8fpe")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Panel/OuterMargins/PanelLayoutBox/OpenDetailButton" to="." method="_on_open_detail_button_pressed"]

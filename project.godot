@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="m3udang"
 config/description="m3u editing made simple."
-run/main_scene="uid://btksxy5ipbvkv"
+run/main_scene="uid://b17d0gvxdp54p"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cv8sl6g2aix0r"
 
@@ -26,7 +26,8 @@ buses/default_bus_layout="uid://78jupxapj4tp"
 
 [autoload]
 
-Globals="*uid://c14gfjkvo2ef0"
+Main="*uid://dvcn77fsvd5lw"
+SignalBus="*uid://dgtvea71f2fk7"
 
 [display]
 

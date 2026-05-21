@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dvasne3rkn1ah"]
+
+[ext_resource type="PackedScene" uid="uid://k0pv22haxjig" path="res://app/now_playing/queue/now_playing_queue.tscn" id="1_1a73a"]
+[ext_resource type="Script" uid="uid://dymjea71pdfnw" path="res://app/now_playing/now_playing_panel.gd" id="1_071yi"]
+[ext_resource type="PackedScene" uid="uid://c81kphgesuj1a" path="res://app/now_playing/player/player.tscn" id="2_071yi"]
+[ext_resource type="PackedScene" uid="uid://cb4g38inffqku" path="res://app/now_playing/visualizer/visualizer_panel.tscn" id="2_eh0r2"]
+
+[node name="NowPlayingPanel" type="Panel" unique_id=1787928880]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_071yi")
+
+[node name="NowPlayingLayout" type="VBoxContainer" parent="." unique_id=1498015278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainLayout" type="HBoxContainer" parent="NowPlayingLayout" unique_id=1150076346]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VisualizerPanel" parent="NowPlayingLayout/MainLayout" unique_id=1378494163 instance=ExtResource("2_eh0r2")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NowPlayingQueue" parent="NowPlayingLayout/MainLayout" unique_id=2134626693 instance=ExtResource("1_1a73a")]
+clip_contents = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="Player" parent="NowPlayingLayout" unique_id=1894687949 instance=ExtResource("2_071yi")]
+clip_contents = true
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[connection signal="step_back" from="NowPlayingLayout/Player" to="." method="_on_player_step_back"]
+[connection signal="step_forward" from="NowPlayingLayout/Player" to="." method="_on_player_step_forward"]
