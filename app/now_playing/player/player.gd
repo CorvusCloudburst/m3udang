@@ -25,13 +25,15 @@ enum Repeat { NONE, ALL, ONE }
 @export var shuffle: bool = true
 @export var repeat: Repeat = Repeat.NONE
 var track_length: float
+var dragging: bool = false
 
 func _ready() -> void:
 	SignalBus.play_track.connect(play_track)
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Player"), 0.5)
 	
 func _process(_delta: float) -> void:
-	timeline_slider.value = track_player.get_playback_position()
+	if !dragging:
+		timeline_slider.value = track_player.get_playback_position()
 
 # -----------------------------------------------------------------
 # Active Track Functions
@@ -81,6 +83,15 @@ func _on_track_player_finished() -> void:
 # -----------------------------------------------------------------
 # Buttons / Interactivity
 # -----------------------------------------------------------------
+
+# ------------- Timeline -------------
+func _on_timeline_slider_drag_started() -> void:
+	dragging = true
+	
+func _on_timeline_slider_drag_ended(value_changed: bool) -> void:
+	dragging = false
+	if (value_changed):
+		track_player.seek(timeline_slider.value)
 
 # ------------- Shuffle -------------
 # Shuffle Button
