@@ -60,6 +60,12 @@ func get_queued_tracks() -> Array:
 # -----------------------------------------------------------------
 # Display elements
 # -----------------------------------------------------------------
+
+# Scroll to where the track should be
+func scroll_to_index(index: int) -> void:
+	var scroll_offset = index as float / track_count() as float
+	track_queue.scroll_to(scroll_offset)
+
 # Updates the displayed track count
 func _update_track_count() -> void:
 	track_count_label.text = str(track_queue.get_track_count()) + " tracks"

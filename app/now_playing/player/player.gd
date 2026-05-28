@@ -9,17 +9,17 @@ enum Repeat { NONE, ALL, ONE }
 @onready var track_player: AudioStreamPlayer = $TrackPlayer
 
 # Controls
-@onready var shuffle_button: Button = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/ShuffleButton
-@onready var step_back_button: Button = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepBackButton
-@onready var play_pause_button: Button = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton
-@onready var step_forward_button: Button = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepForwardButton
-@onready var repeat_button: Button = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/RepeatButton
-@onready var timeline_slider: HSlider = $PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout/TimelineSlider
+@onready var shuffle_button: Button = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/ShuffleButton
+@onready var step_back_button: Button = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepBackButton
+@onready var play_pause_button: Button = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton
+@onready var step_forward_button: Button = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepForwardButton
+@onready var repeat_button: Button = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/RepeatButton
+@onready var timeline_slider: HSlider = $PlayerPanel/PlayerPanelLayout/TimelineLayout/TimelineSlider
 
 # Display
-@onready var track_name_label: Label = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackNameLabel
-@onready var artist_label: Label = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout/ArtistLabel
-@onready var album_label: Label = $PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout/AlbumLabel
+@onready var track_name_label: Label = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackNameLabel
+@onready var artist_label: Label = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout/ArtistLabel
+@onready var album_label: Label = $PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout/AlbumLabel
 
 # State
 @export var shuffle: bool = true
@@ -75,6 +75,8 @@ func play_track(relative_path: String) -> void:
 	# Update the time slider
 	timeline_slider.min_value = 0
 	timeline_slider.max_value = stream.get_length()
+	
+	SignalBus.track_started.emit(relative_path)
 
 func _on_track_player_finished() -> void:
 	SignalBus.track_finished.emit()

@@ -51,3 +51,4 @@ func play_song_at_index(index: int) -> void:
 	print("Playing song at index: " + str(index))
 	var track_list = now_playing_queue.get_queued_tracks()
 	player.play_track(track_list[index])
+	now_playing_queue.scroll_to_index(index)

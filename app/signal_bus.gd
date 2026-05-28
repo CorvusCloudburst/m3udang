@@ -10,6 +10,9 @@ signal play_playlist(playlist_file: String)
 signal play_track(relative_path: String)
 
 @warning_ignore("unused_signal")
+signal track_started(relative_path: String)
+
+@warning_ignore("unused_signal")
 signal track_finished()
 
 @warning_ignore("unused_signal")

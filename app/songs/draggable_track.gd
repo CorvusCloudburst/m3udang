@@ -10,6 +10,10 @@ extends Panel
 
 # Expected parameters
 @export var track_file_path: String
+var playing: bool = false
+
+func _init() -> void:
+	SignalBus.track_started.connect(_update_playing_status)
 
 func _ready() -> void:
 	# Display pretty label
@@ -23,11 +27,18 @@ func _ready() -> void:
 signal track_duplicated(duplicatedTrack: String, index: int)
 signal track_deleted(deletedTrack: String, index: int)
 signal track_dropped(dropped_item: DraggableTrack, reference_index: int)
+
+func _update_playing_status(relative_path: String) -> void:
+	playing = relative_path == track_file_path
+	if playing:
+		modulate = Globals.accent_color
+	else:
+		modulate = Color.WHITE
+	
 	
 # -----------------------------------------------------------------
 # Buttons
 # -----------------------------------------------------------------
-
 func _on_duplicate_button_pressed() -> void:
 	track_duplicated.emit(track_file_path, get_index())
 	

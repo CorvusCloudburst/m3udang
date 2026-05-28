@@ -4,7 +4,8 @@ extends Panel
 const DRAGGABLE_TRACK_SCENE = preload("res://app/songs/draggable_track.tscn")
 
 # Display elements
-@onready var track_list: VBoxContainer = $ScrollContainer/DraggableTrackList
+@onready var track_list: DraggableTrackList = $ScrollContainer/DraggableTrackList
+@onready var scroll_container: ScrollContainer = $ScrollContainer
 
 # -----------------------------------------------------------------
 # External API
@@ -35,6 +36,17 @@ func clear_panel_tracks() -> void:
 # Total tracks in the list
 func get_track_count() -> int:
 	return track_list.get_child_count()
+
+# -----------------------------------------------------------------
+# Display
+# -----------------------------------------------------------------
+
+func scroll_to(percent: float) -> void:
+	var min_value = scroll_container.get_v_scroll_bar().min_value
+	var max_value = scroll_container.get_v_scroll_bar().max_value
+	var scrollTo = (max_value * percent) + min_value
+	print("scrolling to: " + str(scrollTo) + " of " + str(scroll_container.get_v_scroll_bar().max_value))
+	scroll_container.scroll_vertical = clamp(scrollTo as int - 30, min_value, max_value)
 
 # -----------------------------------------------------------------
 # Internal Track Management

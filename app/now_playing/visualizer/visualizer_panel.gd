@@ -36,7 +36,7 @@ func _initialize_color_mode_select() -> void:
 func _initialize_visualizer() -> void:
 	_initialize_visualizer_select()
 	_initialize_color_mode_select()
-	visualizer_color_button.color = Color.MEDIUM_SLATE_BLUE
+	visualizer_color_button.color = Globals.accent_color
 	element_count_spin_box.value = 128
 	_update_visualizer_style()
 	
@@ -83,7 +83,8 @@ func _on_color_mode_select_item_selected(_index: int) -> void:
 	_update_visualizer_style()
 
 # Color
-func _on_visualizer_color_button_color_changed(_color: Color) -> void:
+func _on_visualizer_color_button_color_changed(color: Color) -> void:
+	Globals.accent_color = color
 	_update_visualizer_style()
 
 # Hue Shift

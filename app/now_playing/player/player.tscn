@@ -20,7 +20,7 @@ script = ExtResource("1_onj6o")
 
 [node name="PlayerPanel" type="Panel" parent="." unique_id=328540722]
 clip_contents = true
-custom_minimum_size = Vector2(450, 95)
+custom_minimum_size = Vector2(450, 85)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -29,45 +29,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="OuterMargins" type="MarginContainer" parent="PlayerPanel" unique_id=2084239707]
+[node name="PlayerPanelLayout" type="VBoxContainer" parent="PlayerPanel" unique_id=1694968870]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
 
-[node name="PlayerPanelLayout" type="VBoxContainer" parent="PlayerPanel/OuterMargins" unique_id=1694968870]
-clip_contents = true
-layout_mode = 2
-
-[node name="TimelineMargins" type="MarginContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout" unique_id=1858835758]
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="TimelineLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins" unique_id=732627245]
+[node name="TimelineLayout" type="HBoxContainer" parent="PlayerPanel/PlayerPanelLayout" unique_id=732627245]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="TimelineSlider" type="HSlider" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout" unique_id=1032258958]
+[node name="TimelineSlider" type="HSlider" parent="PlayerPanel/PlayerPanelLayout/TimelineLayout" unique_id=1032258958]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="PlayerControlsLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout" unique_id=1870728665]
+[node name="PlayerControlsLayout" type="HBoxContainer" parent="PlayerPanel/PlayerPanelLayout" unique_id=1870728665]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 3
 alignment = 1
 
-[node name="ControlsLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout" unique_id=159323216]
+[node name="ControlsLayout" type="HBoxContainer" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout" unique_id=159323216]
 layout_mode = 2
 
-[node name="ShuffleButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1959410084]
+[node name="ShuffleButton" type="Button" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1959410084]
 custom_minimum_size = Vector2(65, 35)
 layout_mode = 2
 tooltip_text = "Shuffle"
@@ -76,7 +66,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="StepBackButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1713379117]
+[node name="StepBackButton" type="Button" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1713379117]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 tooltip_text = "Step back"
@@ -85,7 +75,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="PlayPauseButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1764902847]
+[node name="PlayPauseButton" type="Button" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1764902847]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 tooltip_text = "Play/Pause"
@@ -94,7 +84,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="StepForwardButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=274668438]
+[node name="StepForwardButton" type="Button" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=274668438]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 tooltip_text = "Step forward"
@@ -103,7 +93,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="RepeatButton" type="Button" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1857578010]
+[node name="RepeatButton" type="Button" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1857578010]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 tooltip_text = "Repeat"
@@ -112,7 +102,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="VolumeSlider" type="HSlider" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1284680]
+[node name="VolumeSlider" type="HSlider" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout" unique_id=1284680]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -123,24 +113,24 @@ step = 0.01
 value = 0.5
 ticks_position = 3
 
-[node name="TrackInfoLayout" type="VBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout" unique_id=720103066]
+[node name="TrackInfoLayout" type="VBoxContainer" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout" unique_id=720103066]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = -4
+theme_override_constants/separation = -20
 
-[node name="TrackNameLabel" type="Label" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout" unique_id=1328529358]
+[node name="TrackNameLabel" type="Label" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout" unique_id=1328529358]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Track Title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TrackMetadataLayout" type="HBoxContainer" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout" unique_id=1612743807]
+[node name="TrackMetadataLayout" type="HBoxContainer" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout" unique_id=1612743807]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 13
 
-[node name="ArtistLabel" type="Label" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=1539224372]
+[node name="ArtistLabel" type="Label" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=1539224372]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -148,14 +138,14 @@ text = "Artist"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Divider" type="TextureRect" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=1497231155]
+[node name="Divider" type="TextureRect" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=1497231155]
 custom_minimum_size = Vector2(15, 15)
 layout_mode = 2
 texture = ExtResource("7_dtq3r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AlbumLabel" type="Label" parent="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=81107285]
+[node name="AlbumLabel" type="Label" parent="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/TrackInfoLayout/TrackMetadataLayout" unique_id=81107285]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -165,12 +155,12 @@ vertical_alignment = 1
 [node name="TrackPlayer" type="AudioStreamPlayer" parent="." unique_id=901033405]
 bus = &"Player"
 
-[connection signal="drag_ended" from="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_ended"]
-[connection signal="drag_started" from="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_started"]
-[connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
-[connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepBackButton" to="." method="_on_step_back_button_pressed"]
-[connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
-[connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepForwardButton" to="." method="_on_step_forward_button_pressed"]
-[connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/RepeatButton" to="." method="_on_repeat_button_pressed"]
-[connection signal="value_changed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="drag_ended" from="PlayerPanel/PlayerPanelLayout/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_ended"]
+[connection signal="drag_started" from="PlayerPanel/PlayerPanelLayout/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_started"]
+[connection signal="pressed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepBackButton" to="." method="_on_step_back_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepForwardButton" to="." method="_on_step_forward_button_pressed"]
+[connection signal="pressed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/RepeatButton" to="." method="_on_repeat_button_pressed"]
+[connection signal="value_changed" from="PlayerPanel/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="finished" from="TrackPlayer" to="." method="_on_track_player_finished"]
