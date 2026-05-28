@@ -15,7 +15,7 @@ func _draw():
 			index * portioned_width - (portioned_width * 3),    # Position X
 			0,  												# Position Y
 			portioned_width * 6.25,            					# Width
-			(elements[index].heightLerped) + (size.y/25)  # Height
+			(elements[index].heightLerped) + (size.y/25)  		# Height
 		)
 		draw_rect(rectangle, color1, true, -1.0,true)
 		

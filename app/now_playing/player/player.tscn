@@ -165,6 +165,8 @@ vertical_alignment = 1
 [node name="TrackPlayer" type="AudioStreamPlayer" parent="." unique_id=901033405]
 bus = &"Player"
 
+[connection signal="drag_ended" from="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_ended"]
+[connection signal="drag_started" from="PlayerPanel/OuterMargins/PlayerPanelLayout/TimelineMargins/TimelineLayout/TimelineSlider" to="." method="_on_timeline_slider_drag_started"]
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/ShuffleButton" to="." method="_on_shuffle_button_pressed"]
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/StepBackButton" to="." method="_on_step_back_button_pressed"]
 [connection signal="pressed" from="PlayerPanel/OuterMargins/PlayerPanelLayout/PlayerControlsLayout/ControlsLayout/PlayPauseButton" to="." method="_on_play_pause_button_pressed"]
