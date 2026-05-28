@@ -15,6 +15,7 @@ func _ready() -> void:
 	# Display pretty label
 	var filename = track_file_path if track_file_path else 'track.mp3'
 	track_label.text = filename.rsplit(".", false, 1)[0]
+	tooltip_text = filename
 	
 # -----------------------------------------------------------------
 # External API
