@@ -6,7 +6,7 @@ func _init() -> void:
 
 func _draw():
 	for index: int in element_count:
-		var bar_color: Color = responsive_color(index)
+		var bar_color: Color = get_color_for_index(index)
 		
 		# Primary
 		var color1 = Color(bar_color)
