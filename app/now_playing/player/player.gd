@@ -23,7 +23,7 @@ enum Repeat { NONE, ALL, ONE }
 
 # State
 @export var shuffle: bool = true
-@export var repeat: Repeat = Repeat.NONE
+@export var repeat: Repeat = Repeat.ALL
 var track_length: float
 var dragging: bool = false
 
