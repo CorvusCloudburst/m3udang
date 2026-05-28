@@ -38,12 +38,13 @@ func restart_song() -> void:
 # Plays the next song
 func play_next_song() -> void:
 	print("Playing next song. Shuffle is: " + str(player.shuffle))
+	var total_tracks = now_playing_queue.track_count()
 	# Determine the index of the next track
 	if player.shuffle:
-		var total_tracks = now_playing_queue.track_count()
 		current_track_index = randi_range(0, total_tracks - 1)
 	else:
-		current_track_index = current_track_index + 1
+		# Wrap around from the end
+		current_track_index = current_track_index + 1 if current_track_index + 1 < total_tracks else 0
 	play_song_at_index(current_track_index)
 
 # Play the song at the specified index
