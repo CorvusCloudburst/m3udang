@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dauexyc0af6tp" path="res://app/playlist_management/playlist_details/playlist_details_panel.gd" id="1_gnfcv"]
 [ext_resource type="Texture2D" uid="uid://ba2tigywb3mm6" path="res://icons/x.png" id="2_gj7ew"]
 [ext_resource type="Texture2D" uid="uid://d3d2rcf5bxbf5" path="res://icons/play.png" id="2_rrb1t"]
+[ext_resource type="Texture2D" uid="uid://mfgdhrvuj2fg" path="res://icons/music-directory.png" id="3_mfxcj"]
 [ext_resource type="PackedScene" uid="uid://d34si2h4yja4h" path="res://app/songs/draggable_track_list_panel.tscn" id="4_0sevv"]
 
 [node name="PlaylistDetailsPanel" type="Panel" unique_id=1550198251]
@@ -48,6 +49,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "playlist name"
 
+[node name="AddDirectoryButton" type="Button" parent="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader" unique_id=2040306765]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = ExtResource("3_mfxcj")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
 [node name="ClosePlaylistDetailsButton" type="Button" parent="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader" unique_id=2000293572]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -59,6 +68,13 @@ expand_icon = true
 [node name="DraggableTrackListPanel" parent="PlaylistDetailsLayout" unique_id=391939788 instance=ExtResource("4_0sevv")]
 layout_mode = 2
 
+[node name="AddFolderToPlaylistFileDialog" type="FileDialog" parent="." unique_id=308594384]
+title = "Open a Directory"
+file_mode = 2
+access = 2
+
 [connection signal="pressed" from="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/PlayPlaylistButton" to="." method="_on_play_playlist_button_pressed"]
+[connection signal="pressed" from="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/AddDirectoryButton" to="." method="_on_add_directory_button_pressed"]
 [connection signal="pressed" from="PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/ClosePlaylistDetailsButton" to="." method="_on_close_playlist_details_button_pressed"]
 [connection signal="tracklist_modified" from="PlaylistDetailsLayout/DraggableTrackListPanel" to="." method="_on_draggable_track_list_tracklist_modified"]
+[connection signal="dir_selected" from="AddFolderToPlaylistFileDialog" to="." method="_on_add_folder_to_playlist_file_dialog_dir_selected"]
