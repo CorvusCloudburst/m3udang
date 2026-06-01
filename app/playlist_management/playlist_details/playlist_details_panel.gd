@@ -9,6 +9,8 @@ extends Panel
 # Display elements
 @onready var playlist_name_label: Label = $PlaylistDetailsLayout/HeaderMargins/PlaylistDetailsPanelHeader/PlaylistNameLabel
 @onready var draggable_track_list_panel: Panel = $PlaylistDetailsLayout/DraggableTrackListPanel
+@onready var add_folder_to_playlist_file_dialog: FileDialog = $AddFolderToPlaylistFileDialog
+
 
 func _ready() -> void:
 	# Listen for signals to open a playlist
@@ -32,6 +34,14 @@ func _on_draggable_track_list_tracklist_modified() -> void:
 func _on_play_playlist_button_pressed() -> void:
 	SignalBus.play_playlist.emit(filename)
 	SignalBus.playing_toggled.emit(true)
+
+# ------------- Add all tracks in a directory to the playlist -------------
+func _on_add_directory_button_pressed() -> void:
+	add_folder_to_playlist_file_dialog.visible = true
+
+func _on_add_folder_to_playlist_file_dialog_dir_selected(dir: String) -> void:
+	_add_directory_to_playlist(dir)
+	_save_playlist_to_file()
 
 # ------------- Helpers -------------
 # Opens the panel with fresh data
@@ -81,4 +91,27 @@ func _save_playlist_to_file() -> void:
 	# Store each track in order
 	for track in draggable_track_list_panel.get_track_list():
 		file.store_line(track)
+
+# Recursively finds all .mp3 files in the provided folder, and adds them to track list
+func _add_directory_to_playlist(directory: String) -> void:
+	var files = DirAccess.get_files_at(directory)
+	for file in files:
+		if file.ends_with(".mp3"):
+			# Adds the file to the playlist
+			draggable_track_list_panel._insert_track_into_list(_get_relative_filepath(directory + "/" + file))
 	
+	# Traverse child directories
+	var directories = DirAccess.get_directories_at(directory)
+	for subdirectory in directories:
+		_add_directory_to_playlist(directory + "/" + subdirectory)
+
+# Accepts an absolute filepath, and returns the filpath relative to the current playlist directory
+func _get_relative_filepath(absolute_path: String) -> String:
+	var common_directory = ""
+	for index in range(0, absolute_path.length()):
+		var new_path = absolute_path.substr(0, index)
+		if Globals.playlist_directory.begins_with(new_path):
+			common_directory = new_path
+		else:
+			break;
+	return absolute_path.replace(common_directory, "../")
